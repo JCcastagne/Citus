@@ -6,9 +6,7 @@ import * as Speech from 'expo-speech'
 export default function App () {
   const speak = () => {
     let thingToSay = 'testing the speech feature'
-    Speech.speak(
-      `hey guys military department here. did you ever think about enlisting in the military?`
-    )
+    Speech.speak(thingToSay)
   }
 
   return (

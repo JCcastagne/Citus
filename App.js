@@ -1,19 +1,22 @@
 import { StyleSheet, Text, View } from 'react-native'
-import { createDrawerNavigator } from '@react-navigation/drawer'
+import 'react-native-gesture-handler'
+import { createStackNavigator } from '@react-navigation/stack'
+import { NavigationContainer } from '@react-navigation/native'
 import { useState } from 'react'
-import { StatusBar } from 'expo-status-bar'
 import AppLoading from 'expo-app-loading'
+
+import HomeScreen from './screens/HomeScreen'
+import Settings from './screens/Settings'
+
+const getResources = () => {
+  Promise.resolve()
+}
 
 export default function App () {
   const [resourcesLoaded, setResourcesLoaded] = useState(false)
 
   if (resourcesLoaded) {
-    return (
-      <View>
-        <StatusBar style='auto' />
-        <AppContainer />
-      </View>
-    )
+    return <AppContainer />
   } else {
     return (
       <AppLoading
@@ -30,7 +33,23 @@ export default function App () {
   }
 }
 
-function AppContainer () {}
+function AppContainer () {
+  const Stack = createStackNavigator()
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName='HomeScreen'
+        screenOptions={({ navigation }) => ({
+          cardOverlayEnabled: true,
+          headerShown: false
+        })}
+      >
+        <Stack.Screen name='HomeScreen' component={HomeScreen} />
+        <Stack.Screen name='Settings' component={Settings} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+}
 
 const styles = StyleSheet.create({
   container: {

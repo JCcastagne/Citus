@@ -4,16 +4,32 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
 import { useState } from 'react'
 import AppLoading from 'expo-app-loading'
+import {
+  useFonts,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_700Bold
+} from '@expo-google-fonts/poppins'
 
 import HomeScreen from './screens/HomeScreen'
 import Settings from './screens/Settings'
 
-const getResources = () => {
-  Promise.resolve()
-}
-
 export default function App () {
   const [resourcesLoaded, setResourcesLoaded] = useState(false)
+
+  let [fontLoaded] = useFonts({
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
+    Poppins_700Bold
+  })
+
+  const getResources = () => {
+    if (fontLoaded) {
+      Promise.resolve()
+    }
+  }
 
   if (resourcesLoaded) {
     return <AppContainer />

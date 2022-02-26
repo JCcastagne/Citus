@@ -11,9 +11,9 @@ export default function App () {
 
   return (
     <View style={styles.container}>
+      <StatusBar style='auto' />
       <Text>Open up App.js to start working on your app!</Text>
       <Button title='Press to hear some words' onPress={speak} />
-      <StatusBar style='auto' />
     </View>
   )
 }

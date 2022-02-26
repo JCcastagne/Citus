@@ -1,22 +1,36 @@
-import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View } from 'react-native'
-import { Button } from 'react-native'
-import * as Speech from 'expo-speech'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import { useState } from 'react'
+import { StatusBar } from 'expo-status-bar'
+import AppLoading from 'expo-app-loading'
 
 export default function App () {
-  const speak = () => {
-    let thingToSay = 'testing the speech feature'
-    Speech.speak(thingToSay)
-  }
+  const [resourcesLoaded, setResourcesLoaded] = useState(false)
 
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <Button title='Press to hear some words' onPress={speak} />
-      <StatusBar style='auto' />
-    </View>
-  )
+  if (resourcesLoaded) {
+    return (
+      <View>
+        <StatusBar style='auto' />
+        <AppContainer />
+      </View>
+    )
+  } else {
+    return (
+      <AppLoading
+        startAsync={getResources}
+        onFinish={() => {
+          //minimum timeout for 2s so that we can see splashscreen
+          setTimeout(() => {
+            setResourcesLoaded(true)
+          }, 2000)
+        }}
+        onError={console.warn}
+      />
+    )
+  }
 }
+
+function AppContainer () {}
 
 const styles = StyleSheet.create({
   container: {

@@ -1,6 +1,13 @@
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text, View, Image } from 'react-native'
-import { Pressable, TextInput } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Pressable,
+  TextInput,
+  ImageBackground
+} from 'react-native'
 import * as Speech from 'expo-speech'
 import { useEffect, useState } from 'react'
 
@@ -24,17 +31,18 @@ export default function App ({ navigation }) {
   const [frequency, onChangeFrequency] = useState('15')
 
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, backgroundColor: '#F2F4F7' }}>
       <StatusBar style='auto' />
 
       <View
+        id='navigation'
         style={{
           ...styles.controlLine,
           width: '100%'
         }}
       >
         <Image
-          source={require('../assets/Citus_logo.png')}
+          source={require('../assets/citus_logo.png')}
           style={{ height: 26.74, width: 106.96, marginBottom: 2 }}
         />
         <Pressable
@@ -46,10 +54,34 @@ export default function App ({ navigation }) {
         </Pressable>
       </View>
 
-      <View id='visualizer' style={{ width: '100%' }}>
-        <View
-          style={{ height: 40, width: '100%', backgroundColor: '#000' }}
-        ></View>
+      <View id='visualizer'>
+        <ImageBackground
+          style={{
+            width: 115,
+            height: 286,
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+          source={require('../assets/meter.png')}
+        >
+          <View
+            style={{
+              width: 56,
+              height: 220
+            }}
+          >
+            <View
+              style={{
+                backgroundColor: '#3FDBF2',
+                width: '100%',
+                height: '66%',
+                borderRadius: 13,
+                position: 'absolute',
+                bottom: 0
+              }}
+            ></View>
+          </View>
+        </ImageBackground>
       </View>
 
       <View id='controls' style={{ width: '100%' }}>

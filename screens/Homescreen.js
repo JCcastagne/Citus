@@ -42,7 +42,7 @@ export default function App ({ navigation }) {
         }}
       >
         <Image
-          source={require('../assets/citus_logo.png')}
+          source={require('../assets/citus_logo_small.png')}
           style={{ height: 26.74, width: 106.96, marginBottom: 2 }}
         />
         <Pressable

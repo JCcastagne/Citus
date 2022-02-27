@@ -56,8 +56,9 @@ function AppContainer () {
       <Stack.Navigator
         initialRouteName='HomeScreen'
         screenOptions={({ navigation }) => ({
-          cardOverlayEnabled: true,
-          headerShown: false
+          headerShown: false,
+          cardShadowEnabled: true,
+          cardOverlayEnabled: true
         })}
       >
         <Stack.Screen name='HomeScreen' component={HomeScreen} />

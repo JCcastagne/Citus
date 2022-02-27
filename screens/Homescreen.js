@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { Pressable, TextInput } from 'react-native'
 import * as Speech from 'expo-speech'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function App ({ navigation }) {
   const speak = thingToSay => {
@@ -10,6 +10,12 @@ export default function App ({ navigation }) {
   }
 
   const [time, onChangeTime] = useState('10')
+
+  const [announce, onChangeAnnounce] = useState(() => () => {
+    console.log('here')
+    return 'void'
+  })
+
   const [frequency, onChangeFrequency] = useState('15')
 
   return (
@@ -22,10 +28,7 @@ export default function App ({ navigation }) {
           navigation.navigate('Settings')
         }}
       >
-        <Image
-          style={{ width: 24, height: 24 }}
-          source={require('../assets/menu.png')}
-        />
+        <Image style={styles.icons} source={require('../assets/menu.png')} />
       </Pressable>
 
       <View id='visualizer' style={{ width: '100%' }}>
@@ -34,28 +37,35 @@ export default function App ({ navigation }) {
         ></View>
       </View>
 
-      <View id='controls'>
-        <View>
-          <Text>Time</Text>
+      <View id='controls' style={{ width: '100%' }}>
+        <View id='time' style={styles.controlLine}>
+          <Text style={styles.controlLabels}>Time</Text>
           <TextInput
             onChangeText={onChangeTime}
             placeholder={'10'}
             keyboardType='number-pad'
+            autoComplete='false'
+            importantForAutofill='no'
+            style={styles.controlInputs}
+            placeholderTextColor='#58B0D1'
           />
         </View>
-        <View>
-          <Text>Announce</Text>
-          <Pressable>
-            <Text>On</Text>
-            <Text>Off</Text>
+        <View id='announce' style={styles.controlLine}>
+          <Text style={styles.controlLabels}>Announce</Text>
+          <Pressable onPress={onChangeAnnounce}>
+            <Text style={styles.controlInputs}>{announce}</Text>
           </Pressable>
         </View>
-        <View>
-          <Text>Frequency</Text>
+        <View id='frequency' style={styles.controlLine}>
+          <Text style={styles.controlLabels}>Frequency</Text>
           <TextInput
             onChangeText={onChangeFrequency}
             placeholder={'15'}
             keyboardType='number-pad'
+            autoComplete='false'
+            importantForAutofill='no'
+            style={styles.controlInputs}
+            placeholderTextColor='#58B0D1'
           />
         </View>
       </View>
@@ -70,5 +80,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 17
+  },
+  controlLine: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  controlLabels: {
+    fontFamily: 'Poppins_600SemiBold',
+    fontSize: 17,
+    color: '#58B0D1'
+  },
+  controlInputs: {
+    fontFamily: 'Poppins_400Regular',
+    fontSize: 17,
+    color: '#58B0D1'
+  },
+  icons: {
+    width: 36,
+    height: 36
   }
 })

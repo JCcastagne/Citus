@@ -6,7 +6,8 @@ import {
   Image,
   Pressable,
   TextInput,
-  ImageBackground
+  ImageBackground,
+  Platform
 } from 'react-native'
 import * as Speech from 'expo-speech'
 import { useEffect, useState } from 'react'
@@ -31,7 +32,12 @@ export default function App ({ navigation }) {
   const [frequency, onChangeFrequency] = useState('15')
 
   return (
-    <View style={{ ...styles.container, backgroundColor: '#F2F4F7' }}>
+    <View
+      style={{
+        ...styles.container,
+        backgroundColor: '#EBEDF0'
+      }}
+    >
       <StatusBar style='auto' />
 
       <View
@@ -54,7 +60,15 @@ export default function App ({ navigation }) {
         </Pressable>
       </View>
 
-      <View id='visualizer'>
+      <View
+        id='visualizer'
+        style={{
+          flex: 1,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
         <ImageBackground
           style={{
             width: 115,
@@ -130,13 +144,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 17
+    paddingHorizontal: 34,
+    paddingTop: Platform.OS === 'ios' ? 34 : 80,
+    paddingBottom: Platform.OS === 'ios' ? 41 : 38
   },
   controlLine: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingBottom: 8
   },
   controlLabels: {
     fontFamily: 'Poppins_600SemiBold',
@@ -149,7 +166,7 @@ const styles = StyleSheet.create({
     color: '#58B0D1'
   },
   icons: {
-    width: 36,
-    height: 36
+    width: 24,
+    height: 24
   }
 })

@@ -3,6 +3,7 @@ import 'react-native-gesture-handler'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
 import { useState } from 'react'
+import { SafeAreaView } from 'react-native'
 import AppLoading from 'expo-app-loading'
 import {
   useFonts,
@@ -52,19 +53,21 @@ export default function App () {
 function AppContainer () {
   const Stack = createStackNavigator()
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName='HomeScreen'
-        screenOptions={({ navigation }) => ({
-          headerShown: false,
-          cardShadowEnabled: true,
-          cardOverlayEnabled: true
-        })}
-      >
-        <Stack.Screen name='HomeScreen' component={HomeScreen} />
-        <Stack.Screen name='Settings' component={Settings} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#EBEDF0' }}>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName='HomeScreen'
+          screenOptions={({ navigation }) => ({
+            headerShown: false,
+            cardShadowEnabled: true,
+            cardOverlayEnabled: true
+          })}
+        >
+          <Stack.Screen name='HomeScreen' component={HomeScreen} />
+          <Stack.Screen name='Settings' component={Settings} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaView>
   )
 }
 

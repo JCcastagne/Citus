@@ -27,14 +27,24 @@ export default function App ({ navigation }) {
     <View style={styles.container}>
       <StatusBar style='auto' />
 
-      <Pressable
-        id='navigation'
-        onPress={() => {
-          navigation.navigate('Settings')
+      <View
+        style={{
+          ...styles.controlLine,
+          width: '100%'
         }}
       >
-        <Image style={styles.icons} source={require('../assets/menu.png')} />
-      </Pressable>
+        <Image
+          source={require('../assets/Citus_logo.png')}
+          style={{ height: 26.74, width: 106.96, marginBottom: 2 }}
+        />
+        <Pressable
+          onPress={() => {
+            navigation.navigate('Settings')
+          }}
+        >
+          <Image style={styles.icons} source={require('../assets/menu.png')} />
+        </Pressable>
+      </View>
 
       <View id='visualizer' style={{ width: '100%' }}>
         <View
@@ -93,7 +103,8 @@ const styles = StyleSheet.create({
   controlLine: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   controlLabels: {
     fontFamily: 'Poppins_600SemiBold',

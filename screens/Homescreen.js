@@ -11,10 +11,15 @@ export default function App ({ navigation }) {
 
   const [time, onChangeTime] = useState('10')
 
-  const [announce, onChangeAnnounce] = useState(() => () => {
-    console.log('here')
-    return 'void'
-  })
+  const [announce, changeAnnounce] = useState('On')
+  let isAnnounceOn = true
+  useEffect(() => {
+    if (announce === 'On') {
+      isAnnounceOn = true
+    } else {
+      isAnnounceOn = false
+    }
+  }, [announce])
 
   const [frequency, onChangeFrequency] = useState('15')
 
@@ -52,7 +57,11 @@ export default function App ({ navigation }) {
         </View>
         <View id='announce' style={styles.controlLine}>
           <Text style={styles.controlLabels}>Announce</Text>
-          <Pressable onPress={onChangeAnnounce}>
+          <Pressable
+            onPress={() => {
+              announce === 'On' ? changeAnnounce('Off') : changeAnnounce('On')
+            }}
+          >
             <Text style={styles.controlInputs}>{announce}</Text>
           </Pressable>
         </View>

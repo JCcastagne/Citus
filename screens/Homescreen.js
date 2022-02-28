@@ -7,10 +7,15 @@ import {
   Pressable,
   TextInput,
   ImageBackground,
-  Platform
+  Platform,
+  Dimensions
 } from 'react-native'
 import * as Speech from 'expo-speech'
 import { useEffect, useState } from 'react'
+
+const width = Dimensions.get('window').width
+const height = Dimensions.get('window').height
+const visualizerScale = 1.25
 
 export default function App ({ navigation }) {
   const speak = thingToSay => {
@@ -71,8 +76,8 @@ export default function App ({ navigation }) {
       >
         <ImageBackground
           style={{
-            width: 115,
-            height: 286,
+            width: 115 * visualizerScale,
+            height: 286 * visualizerScale,
             justifyContent: 'center',
             alignItems: 'center'
           }}
@@ -80,8 +85,8 @@ export default function App ({ navigation }) {
         >
           <View
             style={{
-              width: 56,
-              height: 220
+              width: 56 * visualizerScale,
+              height: 220 * visualizerScale
             }}
           >
             <View
@@ -89,7 +94,7 @@ export default function App ({ navigation }) {
                 backgroundColor: '#3FDBF2',
                 width: '100%',
                 height: '66%',
-                borderRadius: 13,
+                borderRadius: 13 * visualizerScale,
                 position: 'absolute',
                 bottom: 0
               }}

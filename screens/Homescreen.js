@@ -18,7 +18,7 @@ const height = Dimensions.get('window').height
 const visualizerScale = 1.25
 
 export default function App ({ navigation }) {
-  const speak = thingToSay => {
+  function speak (thingToSay) {
     Speech.speak(thingToSay)
   }
 
@@ -69,11 +69,21 @@ export default function App ({ navigation }) {
         id='visualizer'
         style={{
           flex: 1,
-          flexDirection: 'row',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center'
         }}
       >
+        <Text
+          id='totalTime'
+          style={{
+            fontFamily: 'Poppins_400Regular',
+            fontSize: 17,
+            color: '#6DBDC9'
+          }}
+        >
+          15:00
+        </Text>
         <ImageBackground
           style={{
             width: 115 * visualizerScale,
@@ -101,6 +111,17 @@ export default function App ({ navigation }) {
             ></View>
           </View>
         </ImageBackground>
+
+        <Text
+          id='remainingTime'
+          style={{
+            fontFamily: 'Poppins_600SemiBold',
+            fontSize: 51,
+            color: '#007B8B'
+          }}
+        >
+          10:47
+        </Text>
       </View>
 
       <View id='controls' style={{ width: '100%' }}>

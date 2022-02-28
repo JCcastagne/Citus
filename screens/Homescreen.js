@@ -36,6 +36,8 @@ export default function App ({ navigation }) {
 
   const [frequency, onChangeFrequency] = useState('15')
 
+  const [isCountDownActive, setIsCountDownActive] = useState(false)
+
   return (
     <View
       style={{
@@ -85,6 +87,7 @@ export default function App ({ navigation }) {
           15:00
         </Text>
         <ImageBackground
+          id='visualizer'
           style={{
             width: 115 * visualizerScale,
             height: 286 * visualizerScale,
@@ -94,12 +97,14 @@ export default function App ({ navigation }) {
           source={require('../assets/meter.png')}
         >
           <View
+            id='visualizerScaleWrapper'
             style={{
               width: 56 * visualizerScale,
               height: 220 * visualizerScale
             }}
           >
             <View
+              id='visualizerScale'
               style={{
                 backgroundColor: '#3FDBF2',
                 width: '100%',
@@ -122,6 +127,64 @@ export default function App ({ navigation }) {
         >
           10:47
         </Text>
+
+        <Pressable
+          id='startStop'
+          onPress={() => {
+            isCountDownActive
+              ? setIsCountDownActive(false)
+              : setIsCountDownActive(true)
+          }}
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            backgroundColor: '#007B8B',
+            paddingVertical: 4,
+            paddingHorizontal: 17,
+            borderRadius: 99
+          }}
+        >
+          {() => {
+            if (isCountDownActive) {
+              return (
+                <>
+                  <Image
+                    source={require('../assets/play.png')}
+                    style={{ height: 16, width: 16, marginRight: 6 }}
+                  />
+                  <Text
+                    style={{
+                      fontFamily: 'Poppins_400Regular',
+                      fontSize: 17,
+                      color: '#F0F2F5'
+                    }}
+                  >
+                    Start
+                  </Text>
+                </>
+              )
+            } else {
+              return (
+                <>
+                  <Image
+                    source={require('../assets/stop.png')}
+                    style={{ height: 16, width: 16, marginRight: 6 }}
+                  />
+                  <Text
+                    style={{
+                      fontFamily: 'Poppins_400Regular',
+                      fontSize: 17,
+                      color: '#F0F2F5',
+                      paddingHorizontal: 1
+                    }}
+                  >
+                    Stop
+                  </Text>
+                </>
+              )
+            }
+          }}
+        </Pressable>
       </View>
 
       <View id='controls' style={{ width: '100%' }}>

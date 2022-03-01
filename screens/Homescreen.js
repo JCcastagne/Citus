@@ -48,7 +48,7 @@ function timeConverter (seconds) {
   }
 }
 
-export default function App ({ navigation }) {
+export default function HomeScreen ({ navigation }) {
   //Speech functionality
   function speak (thingToSay) {
     Speech.speak(thingToSay)

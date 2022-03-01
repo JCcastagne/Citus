@@ -11,20 +11,24 @@ import {
   Dimensions
 } from 'react-native'
 import * as Speech from 'expo-speech'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 const width = Dimensions.get('window').width
 const height = Dimensions.get('window').height
 const visualizerScale = 1.25
 
 export default function App ({ navigation }) {
+  //Speech functionality
   function speak (thingToSay) {
     Speech.speak(thingToSay)
   }
 
+  //State variables
   const [time, onChangeTime] = useState('10')
-
   const [announce, changeAnnounce] = useState('On')
+  const [frequency, onChangeFrequency] = useState('15')
+  const [isCountDownActive, setIsCountDownActive] = useState(false)
+
   let isAnnounceOn = true
   useEffect(() => {
     if (announce === 'On') {
@@ -34,9 +38,11 @@ export default function App ({ navigation }) {
     }
   }, [announce])
 
-  const [frequency, onChangeFrequency] = useState('15')
-
-  const [isCountDownActive, setIsCountDownActive] = useState(false)
+  // refs
+  const frequencyInput = useRef(null)
+  const onSubmitTime = () => {
+    frequencyInput.current.focus()
+  }
 
   return (
     <View
@@ -194,8 +200,13 @@ export default function App ({ navigation }) {
             onChangeText={onChangeTime}
             placeholder={'10'}
             keyboardType='number-pad'
+            returnKeyType='next'
             autoComplete='false'
             importantForAutofill='no'
+            onSubmitEditing={() => {
+              frequencyInput.current.focus()
+            }}
+            // blurOnSubmit='false'
             style={styles.controlInputs}
             placeholderTextColor='#58B0D1'
           />
@@ -213,9 +224,11 @@ export default function App ({ navigation }) {
         <View id='frequency' style={styles.controlLine}>
           <Text style={styles.controlLabels}>Frequency</Text>
           <TextInput
+            ref={frequencyInput}
             onChangeText={onChangeFrequency}
             placeholder={'15'}
             keyboardType='number-pad'
+            returnKeyType='done'
             autoComplete='false'
             importantForAutofill='no'
             style={styles.controlInputs}

@@ -31,9 +31,6 @@ export default function App ({ navigation }) {
 
   // refs
   const frequencyInput = useRef(null)
-  // const onSubmitTime = () => {
-  //   frequencyInput.current.focus()
-  // }
 
   return (
     <View

@@ -29,15 +29,6 @@ export default function App ({ navigation }) {
   const [frequency, onChangeFrequency] = useState('15')
   const [isCountDownActive, setIsCountDownActive] = useState(false)
 
-  let isAnnounceOn = true
-  useEffect(() => {
-    if (announce === 'On') {
-      isAnnounceOn = true
-    } else {
-      isAnnounceOn = false
-    }
-  }, [announce])
-
   // refs
   const frequencyInput = useRef(null)
   const onSubmitTime = () => {
@@ -215,10 +206,10 @@ export default function App ({ navigation }) {
           <Text style={styles.controlLabels}>Announce</Text>
           <Pressable
             onPress={() => {
-              announce === 'On' ? changeAnnounce('Off') : changeAnnounce('On')
+              announce ? changeAnnounce(false) : changeAnnounce(true)
             }}
           >
-            <Text style={styles.controlInputs}>{announce}</Text>
+            <Text style={styles.controlInputs}>{announce ? 'On' : 'Off'}</Text>
           </Pressable>
         </View>
         <View id='frequency' style={styles.controlLine}>

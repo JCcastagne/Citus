@@ -192,7 +192,6 @@ export default function App ({ navigation }) {
             onSubmitEditing={() => {
               frequencyInput.current.focus()
             }}
-            // blurOnSubmit='false'
             style={styles.controlInputs}
             placeholderTextColor='#58B0D1'
           />

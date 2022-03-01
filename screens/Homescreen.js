@@ -103,14 +103,14 @@ export default function App ({ navigation }) {
           source={require('../assets/meter.png')}
         >
           <View
-            id='visualizerScaleWrapper'
+            id='visualizerMeterWrapper'
             style={{
               width: 56 * visualizerScale,
               height: 220 * visualizerScale
             }}
           >
             <View
-              id='visualizerScale'
+              id='visualizerMeter'
               style={{
                 backgroundColor: '#3FDBF2',
                 width: '100%',

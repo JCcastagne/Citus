@@ -25,15 +25,15 @@ export default function App ({ navigation }) {
 
   //State variables
   const [time, onChangeTime] = useState('10')
-  const [announce, changeAnnounce] = useState('On')
-  const [frequency, onChangeFrequency] = useState('15')
-  const [isCountDownActive, setIsCountDownActive] = useState(false)
+  const [announce, setAnnounce] = useState(true)
+  const [frequency, setFrequency] = useState('15')
+  const [timerRunning, setTimerRunning] = useState(false)
 
   // refs
   const frequencyInput = useRef(null)
-  const onSubmitTime = () => {
-    frequencyInput.current.focus()
-  }
+  // const onSubmitTime = () => {
+  //   frequencyInput.current.focus()
+  // }
 
   return (
     <View
@@ -128,9 +128,7 @@ export default function App ({ navigation }) {
         <Pressable
           id='startStop'
           onPress={() => {
-            isCountDownActive
-              ? setIsCountDownActive(false)
-              : setIsCountDownActive(true)
+            timerRunning ? setTimerRunning(false) : setTimerRunning(true)
           }}
           style={{
             flexDirection: 'row',
@@ -142,7 +140,7 @@ export default function App ({ navigation }) {
           }}
         >
           {() => {
-            if (isCountDownActive) {
+            if (timerRunning) {
               return (
                 <>
                   <Image
@@ -206,7 +204,7 @@ export default function App ({ navigation }) {
           <Text style={styles.controlLabels}>Announce</Text>
           <Pressable
             onPress={() => {
-              announce ? changeAnnounce(false) : changeAnnounce(true)
+              announce ? setAnnounce(false) : setAnnounce(true)
             }}
           >
             <Text style={styles.controlInputs}>{announce ? 'On' : 'Off'}</Text>
@@ -216,7 +214,7 @@ export default function App ({ navigation }) {
           <Text style={styles.controlLabels}>Frequency</Text>
           <TextInput
             ref={frequencyInput}
-            onChangeText={onChangeFrequency}
+            onChangeText={setFrequency}
             placeholder={'15'}
             keyboardType='number-pad'
             returnKeyType='done'

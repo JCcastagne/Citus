@@ -49,25 +49,26 @@ function timeConverter (seconds) {
 }
 
 export default function HomeScreen ({ navigation }) {
+  //State variables
+  const [time, onChangeTime] = useState('10')
+  const [announce, setAnnounce] = useState(true)
+  const [frequency, setFrequency] = useState('15')
+  const [timerRunning, setTimerRunning] = useState(false)
+  //State variables for user input
+  const [hours, setHours] = useState(0)
+  const [minutes, setMinutes] = useState(30)
+  const [seconds, setSeconds] = useState(0)
+
+  // refs
+  const [setHoursInput, setMinutesInput, setSecondsInput] = Array.from(
+    { length: 4 },
+    () => useRef(null)
+  )
+
   //Speech functionality
   function speak (thingToSay) {
     Speech.speak(thingToSay)
   }
-
-  //State variables
-  const [time, onChangeTime] = useState('10')
-  const [announce, setAnnounce] = useState(false)
-  const [frequency, setFrequency] = useState('15')
-  const [timerRunning, setTimerRunning] = useState(false)
-  //State variables for user input
-  const [hours, setHours] = useState('00')
-  const [minutes, setMinutes] = useState('00')
-  const [seconds, setSeconds] = useState('00')
-  {
-    console.log(timerRunning)
-  }
-  // refs
-  const frequencyInput = useRef(null)
 
   return (
     <View
@@ -221,19 +222,78 @@ export default function HomeScreen ({ navigation }) {
       <View id='controls' style={{ width: '100%' }}>
         <View id='time' style={styles.controlLine}>
           <Text style={styles.controlLabels}>Time</Text>
-          <TextInput
-            onChangeText={onChangeTime}
-            placeholder={'10'}
-            keyboardType='number-pad'
-            returnKeyType='next'
-            autoComplete='false'
-            importantForAutofill='no'
-            onSubmitEditing={() => {
-              frequencyInput.current.focus()
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center'
             }}
-            style={styles.controlInputs}
-            placeholderTextColor='#58B0D1'
-          />
+          >
+            <TextInput
+              onChangeText={val => {
+                if (val.length === 2) {
+                  setHours(val)
+                  setMinutesInput.current.focus()
+                } else {
+                  setHours(val)
+                }
+              }}
+              placeholder={'00'}
+              keyboardType='number-pad'
+              returnKeyType='next'
+              autoComplete='false'
+              importantForAutofill='no'
+              maxLength={2}
+              onSubmitEditing={() => {
+                setMinutesInput.current.focus()
+              }}
+              style={styles.controlInputs}
+              placeholderTextColor='#58B0D1'
+            />
+            <Text style={styles.controlInputs}>:</Text>
+            <TextInput
+              ref={setMinutesInput}
+              onChangeText={val => {
+                if (val.length === 2) {
+                  setMinutes(val)
+                  setSecondsInput.current.focus()
+                } else {
+                  setMinutes(val)
+                }
+              }}
+              placeholder={'30'}
+              keyboardType='number-pad'
+              returnKeyType='next'
+              autoComplete='false'
+              importantForAutofill='no'
+              maxLength={2}
+              onSubmitEditing={() => {
+                setSecondsInput.current.focus()
+              }}
+              style={styles.controlInputs}
+              placeholderTextColor='#58B0D1'
+            />
+            <Text style={styles.controlInputs}>:</Text>
+            <TextInput
+              ref={setSecondsInput}
+              onChangeText={val => {
+                if (val.length === 2) {
+                  setSeconds(val)
+                  setSecondsInput.current.blur()
+                } else {
+                  setSeconds(val)
+                }
+              }}
+              placeholder={'00'}
+              keyboardType='number-pad'
+              returnKeyType='done'
+              autoComplete='false'
+              importantForAutofill='no'
+              maxLength={2}
+              style={styles.controlInputs}
+              placeholderTextColor='#58B0D1'
+            />
+          </View>
         </View>
 
         <View id='announce' style={styles.controlLine}>
@@ -250,7 +310,7 @@ export default function HomeScreen ({ navigation }) {
         <View id='frequency' style={styles.controlLine}>
           <Text style={styles.controlLabels}>Frequency</Text>
           <TextInput
-            ref={frequencyInput}
+            // ref={frequencyInput}
             onChangeText={setFrequency}
             placeholder={'15'}
             keyboardType='number-pad'
@@ -291,7 +351,8 @@ const styles = StyleSheet.create({
   controlInputs: {
     fontFamily: 'Poppins_400Regular',
     fontSize: 17,
-    color: '#58B0D1'
+    color: '#58B0D1',
+    paddingHorizontal: 2
   },
   icons: {
     width: 24,

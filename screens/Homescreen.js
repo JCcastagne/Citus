@@ -53,19 +53,21 @@ export default function HomeScreen ({ navigation }) {
   const [totalTime, setTotalTime] = useState(0)
   const [remainingTime, setRemainingTime] = useState(0)
   const [announce, setAnnounce] = useState(true)
-  const [frequency, setFrequency] = useState('15')
+  const [frequency, setFrequency] = useState(15)
   const [timerRunning, setTimerRunning] = useState(false)
-  //State variables for user input(total time to countdown)
+
+  //State variables for user input countdown times
   const [hours, setHours] = useState(0)
   const [minutes, setMinutes] = useState(30)
   const [seconds, setSeconds] = useState(0)
 
-  //convert all user input times into seconds
+  //convert all user input countdown times into seconds
   useEffect(() => {
     let hoursToSeconds = hours * 3600
     let minutesToSeconds = minutes * 60
     let totalSeconds = hoursToSeconds + minutesToSeconds + seconds
     // console.log(`
+    // Total countdown user input time
     // hoursToSeconds:${hoursToSeconds}
     // minutesToSeconds:${minutesToSeconds}
     // seconds:${seconds}
@@ -74,11 +76,33 @@ export default function HomeScreen ({ navigation }) {
     setTotalTime(totalSeconds)
   }, [hours, minutes, seconds])
 
+  //State variables for user input frequency times
+  const [fHours, setFhours] = useState(0)
+  const [fMinutes, setFminutes] = useState(0)
+  const [fSeconds, setFseconds] = useState(30)
+
+  //convert all user input frequency times into seconds
+  useEffect(() => {
+    let hoursToSeconds = fHours * 3600
+    let minutesToSeconds = fMinutes * 60
+    let totalSeconds = hoursToSeconds + minutesToSeconds + fSeconds
+    // console.log(`
+    // Frequency user input time
+    // fHoursToSeconds:${hoursToSeconds}
+    // fMinutesToSeconds:${minutesToSeconds}
+    // fSeconds:${seconds}
+    // totalSeconds:${totalSeconds}
+    // `)
+    setFrequency(totalSeconds)
+  }, [fHours, fMinutes, fSeconds])
+
   // refs
-  const [setHoursInput, setMinutesInput, setSecondsInput] = Array.from(
-    { length: 4 },
-    () => useRef(null)
-  )
+  const [
+    setMinutesInput,
+    setSecondsInput,
+    setFminutesInput,
+    setFsecondsInput
+  ] = Array.from({ length: 4 }, () => useRef(null))
 
   //Speech functionality
   function speak (thingToSay) {
@@ -151,7 +175,7 @@ export default function HomeScreen ({ navigation }) {
             color: '#6DBDC9'
           }}
         >
-          {`${timeConverter(hours * 3600 + minutes * 60 + seconds)}`}
+          {timeConverter(totalTime)}
         </Text>
         <ImageBackground
           id='visualizer'
@@ -356,17 +380,93 @@ export default function HomeScreen ({ navigation }) {
 
         <View id='frequency' style={styles.controlLine}>
           <Text style={styles.controlLabels}>Frequency</Text>
-          <TextInput
-            // ref={frequencyInput}
-            onChangeText={setFrequency}
-            placeholder={'15'}
-            keyboardType='number-pad'
-            returnKeyType='done'
-            autoComplete='false'
-            importantForAutofill='no'
-            style={styles.controlInputs}
-            placeholderTextColor='#58B0D1'
-          />
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center'
+            }}
+          >
+            <TextInput
+              onChangeText={val => {
+                val = parseInt(val)
+                if (val > 23) {
+                  val = 23
+                }
+                if (val.length === 2) {
+                  setFhours(val)
+                  setMinutesInput.current.focus()
+                } else {
+                  setFhours(val)
+                }
+              }}
+              placeholder={'00'}
+              keyboardType='number-pad'
+              returnKeyType='done'
+              autoComplete='false'
+              importantForAutofill='no'
+              maxLength={2}
+              onSubmitEditing={() => {
+                setFminutesInput.current.focus()
+              }}
+              style={styles.controlInputs}
+              placeholderTextColor='#58B0D1'
+            />
+            <Text style={styles.controlInputs}>:</Text>
+            <TextInput
+              ref={setFminutesInput}
+              onChangeText={val => {
+                val = parseInt(val)
+                if (val > 59) {
+                  val = 59
+                }
+                if (val.length === 2) {
+                  setFminutes(val)
+                  setFsecondsInput.current.focus()
+                } else {
+                  setFminutes(val)
+                }
+              }}
+              placeholder={'00'}
+              keyboardType='number-pad'
+              returnKeyType='done'
+              autoComplete='false'
+              importantForAutofill='no'
+              maxLength={2}
+              onSubmitEditing={() => {
+                setFsecondsInput.current.focus()
+              }}
+              style={styles.controlInputs}
+              placeholderTextColor='#58B0D1'
+            />
+            <Text style={styles.controlInputs}>:</Text>
+            <TextInput
+              ref={setFsecondsInput}
+              onChangeText={val => {
+                val = parseInt(val)
+                if (val > 59) {
+                  val = 59
+                }
+                if (val.length === 2) {
+                  setFseconds(val)
+                  setFsecondsInput.current.blur()
+                } else {
+                  setFseconds(val)
+                }
+              }}
+              placeholder={'30'}
+              keyboardType='number-pad'
+              returnKeyType='done'
+              autoComplete='false'
+              importantForAutofill='no'
+              maxLength={2}
+              onSubmitEditing={() => {
+                setFsecondsInput.current.blur()
+              }}
+              style={styles.controlInputs}
+              placeholderTextColor='#58B0D1'
+            />
+          </View>
         </View>
       </View>
     </View>

@@ -55,6 +55,9 @@ export default function HomeScreen ({ navigation }) {
   const [announce, setAnnounce] = useState(true)
   const [frequency, setFrequency] = useState(15)
   const [timerRunning, setTimerRunning] = useState(false)
+  useEffect(() => {
+    setRemainingTime(totalTime)
+  }, [totalTime])
 
   //State variables for user input countdown times
   const [hours, setHours] = useState(0)
@@ -177,6 +180,7 @@ export default function HomeScreen ({ navigation }) {
         >
           {timeConverter(totalTime)}
         </Text>
+
         <ImageBackground
           id='visualizer'
           style={{

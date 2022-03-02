@@ -50,6 +50,7 @@ function timeConverter (seconds) {
 
 export default function HomeScreen ({ navigation }) {
   //State variables
+  const [totalTime, setTotalTime] = useState(0)
   const [remainingTime, setRemainingTime] = useState(0)
   const [announce, setAnnounce] = useState(true)
   const [frequency, setFrequency] = useState('15')
@@ -58,6 +59,20 @@ export default function HomeScreen ({ navigation }) {
   const [hours, setHours] = useState(0)
   const [minutes, setMinutes] = useState(30)
   const [seconds, setSeconds] = useState(0)
+
+  //convert all user input times into seconds
+  useEffect(() => {
+    let hoursToSeconds = hours * 3600
+    let minutesToSeconds = minutes * 60
+    let totalSeconds = hoursToSeconds + minutesToSeconds + seconds
+    // console.log(`
+    // hoursToSeconds:${hoursToSeconds}
+    // minutesToSeconds:${minutesToSeconds}
+    // seconds:${seconds}
+    // totalSeconds:${totalSeconds}
+    // `)
+    setTotalTime(totalSeconds)
+  }, [hours, minutes, seconds])
 
   // refs
   const [setHoursInput, setMinutesInput, setSecondsInput] = Array.from(
@@ -70,25 +85,25 @@ export default function HomeScreen ({ navigation }) {
     Speech.speak(thingToSay)
   }
 
-  // useEffect(() => {
-  //   console.log(`
-  //   remainingTime:${remainingTime}
-  //   announce:${announce}
-  //   frequency:${frequency}
-  //   timerRunning:${timerRunning}
-  //   hours:${hours}
-  //   minutes:${minutes}
-  //   seconds:${seconds}
-  //   `)
-  // }, [
-  //   remainingTime,
-  //   announce,
-  //   frequency,
-  //   timerRunning,
-  //   hours,
-  //   minutes,
-  //   seconds
-  // ])
+  useEffect(() => {
+    console.log(`
+    remainingTime:${remainingTime}
+    announce:${announce}
+    frequency:${frequency}
+    timerRunning:${timerRunning}
+    hours:${hours}
+    minutes:${minutes}
+    seconds:${seconds}
+    `)
+  }, [
+    remainingTime,
+    announce,
+    frequency,
+    timerRunning,
+    hours,
+    minutes,
+    seconds
+  ])
 
   return (
     <View
@@ -251,6 +266,10 @@ export default function HomeScreen ({ navigation }) {
           >
             <TextInput
               onChangeText={val => {
+                val = parseInt(val)
+                if (val > 24) {
+                  val = 24
+                }
                 if (val.length === 2) {
                   setHours(val)
                   setMinutesInput.current.focus()
@@ -274,6 +293,10 @@ export default function HomeScreen ({ navigation }) {
             <TextInput
               ref={setMinutesInput}
               onChangeText={val => {
+                val = parseInt(val)
+                if (val > 60) {
+                  val = 60
+                }
                 if (val.length === 2) {
                   setMinutes(val)
                   setSecondsInput.current.focus()
@@ -297,6 +320,10 @@ export default function HomeScreen ({ navigation }) {
             <TextInput
               ref={setSecondsInput}
               onChangeText={val => {
+                val = parseInt(val)
+                if (val > 60) {
+                  val = 60
+                }
                 if (val.length === 2) {
                   setSeconds(val)
                   setSecondsInput.current.blur()

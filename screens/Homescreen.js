@@ -26,7 +26,7 @@ function timeConverter (seconds) {
    *
    * @powtac: https://stackoverflow.com/questions/6312993/javascript-seconds-to-time-string-with-format-hhmmss
    **/
-  var sec_num = parseInt(minutes, 10)
+  var sec_num = parseInt(seconds, 10)
   var hours = Math.floor(sec_num / 3600)
   var minutes = Math.floor((sec_num - hours * 3600) / 60)
   var seconds = sec_num - hours * 3600 - minutes * 60
@@ -50,11 +50,11 @@ function timeConverter (seconds) {
 
 export default function HomeScreen ({ navigation }) {
   //State variables
-  const [time, onChangeTime] = useState('10')
+  const [remainingTime, setRemainingTime] = useState(0)
   const [announce, setAnnounce] = useState(true)
   const [frequency, setFrequency] = useState('15')
   const [timerRunning, setTimerRunning] = useState(false)
-  //State variables for user input
+  //State variables for user input(total time to countdown)
   const [hours, setHours] = useState(0)
   const [minutes, setMinutes] = useState(30)
   const [seconds, setSeconds] = useState(0)
@@ -69,6 +69,26 @@ export default function HomeScreen ({ navigation }) {
   function speak (thingToSay) {
     Speech.speak(thingToSay)
   }
+
+  // useEffect(() => {
+  //   console.log(`
+  //   remainingTime:${remainingTime}
+  //   announce:${announce}
+  //   frequency:${frequency}
+  //   timerRunning:${timerRunning}
+  //   hours:${hours}
+  //   minutes:${minutes}
+  //   seconds:${seconds}
+  //   `)
+  // }, [
+  //   remainingTime,
+  //   announce,
+  //   frequency,
+  //   timerRunning,
+  //   hours,
+  //   minutes,
+  //   seconds
+  // ])
 
   return (
     <View
@@ -116,7 +136,7 @@ export default function HomeScreen ({ navigation }) {
             color: '#6DBDC9'
           }}
         >
-          {time}
+          {`${timeConverter(hours * 3600 + minutes * 60 + seconds)}`}
         </Text>
         <ImageBackground
           id='visualizer'
@@ -157,7 +177,7 @@ export default function HomeScreen ({ navigation }) {
             color: '#007B8B'
           }}
         >
-          10:47
+          {remainingTime === 0 ? '00:00' : timeConverter(remainingTime)}
         </Text>
 
         <Pressable

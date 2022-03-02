@@ -56,10 +56,16 @@ export default function HomeScreen ({ navigation }) {
 
   //State variables
   const [time, onChangeTime] = useState('10')
-  const [announce, setAnnounce] = useState(true)
+  const [announce, setAnnounce] = useState(false)
   const [frequency, setFrequency] = useState('15')
   const [timerRunning, setTimerRunning] = useState(false)
-
+  //State variables for user input
+  const [hours, setHours] = useState('00')
+  const [minutes, setMinutes] = useState('00')
+  const [seconds, setSeconds] = useState('00')
+  {
+    console.log(timerRunning)
+  }
   // refs
   const frequencyInput = useRef(null)
 
@@ -156,7 +162,9 @@ export default function HomeScreen ({ navigation }) {
         <Pressable
           id='startStop'
           onPress={() => {
-            timerRunning ? setTimerRunning(false) : setTimerRunning(true)
+            timerRunning === true
+              ? setTimerRunning(false)
+              : setTimerRunning(true)
           }}
           style={{
             flexDirection: 'row',
@@ -168,7 +176,7 @@ export default function HomeScreen ({ navigation }) {
           }}
         >
           {() => {
-            if (timerRunning) {
+            if (timerRunning === false) {
               return (
                 <>
                   <Image
@@ -227,6 +235,7 @@ export default function HomeScreen ({ navigation }) {
             placeholderTextColor='#58B0D1'
           />
         </View>
+
         <View id='announce' style={styles.controlLine}>
           <Text style={styles.controlLabels}>Announce</Text>
           <Pressable
@@ -237,6 +246,7 @@ export default function HomeScreen ({ navigation }) {
             <Text style={styles.controlInputs}>{announce ? 'On' : 'Off'}</Text>
           </Pressable>
         </View>
+
         <View id='frequency' style={styles.controlLine}>
           <Text style={styles.controlLabels}>Frequency</Text>
           <TextInput

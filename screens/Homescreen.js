@@ -55,9 +55,9 @@ export default function HomeScreen ({ navigation }) {
   const [announce, setAnnounce] = useState(true)
   const [frequency, setFrequency] = useState(15)
   const [timerRunning, setTimerRunning] = useState(false)
-  useEffect(() => {
-    setRemainingTime(totalTime)
-  }, [totalTime])
+  // useEffect(() => {
+  //   setRemainingTime(totalTime)
+  // }, [totalTime])
 
   //State variables for user input countdown times
   const [hours, setHours] = useState(0)
@@ -107,30 +107,44 @@ export default function HomeScreen ({ navigation }) {
     setFsecondsInput
   ] = Array.from({ length: 4 }, () => useRef(null))
 
+  //Timer countdown functionality
+  const [intervalId, setIntervalId] = useState(0)
+  const toggleTimer = () => {
+    if (intervalId) {
+      clearInterval(intervalId)
+      setIntervalId(0)
+      return
+    }
+    const newIntervalId = setInterval(() => {
+      setRemainingTime(remainingTime => remainingTime - 1)
+    }, 1000)
+    setIntervalId(newIntervalId)
+  }
+
   //Speech functionality
   function speak (thingToSay) {
     Speech.speak(thingToSay)
   }
 
-  useEffect(() => {
-    console.log(`
-    remainingTime:${remainingTime}
-    announce:${announce}
-    frequency:${frequency}
-    timerRunning:${timerRunning}
-    hours:${hours}
-    minutes:${minutes}
-    seconds:${seconds}
-    `)
-  }, [
-    remainingTime,
-    announce,
-    frequency,
-    timerRunning,
-    hours,
-    minutes,
-    seconds
-  ])
+  // useEffect(() => {
+  //   console.log(`
+  //   remainingTime:${remainingTime}
+  //   announce:${announce}
+  //   frequency:${frequency}
+  //   timerRunning:${timerRunning}
+  //   hours:${hours}
+  //   minutes:${minutes}
+  //   seconds:${seconds}
+  //   `)
+  // }, [
+  //   remainingTime,
+  //   announce,
+  //   frequency,
+  //   timerRunning,
+  //   hours,
+  //   minutes,
+  //   seconds
+  // ])
 
   return (
     <View
@@ -226,9 +240,14 @@ export default function HomeScreen ({ navigation }) {
         <Pressable
           id='startStop'
           onPress={() => {
-            timerRunning === true
-              ? setTimerRunning(false)
-              : setTimerRunning(true)
+            if (timerRunning == true) {
+              setTimerRunning(false)
+              toggleTimer()
+            } else {
+              setRemainingTime(totalTime)
+              setTimerRunning(true)
+              toggleTimer()
+            }
           }}
           style={{
             flexDirection: 'row',

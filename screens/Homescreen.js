@@ -298,7 +298,7 @@ export default function HomeScreen ({ navigation }) {
                 if (val > 24) {
                   val = 24
                 }
-                if (val.length === 2) {
+                if (val.toString().length === 2) {
                   setHours(val)
                   setMinutesInput.current.focus()
                 } else {
@@ -325,7 +325,7 @@ export default function HomeScreen ({ navigation }) {
                 if (val > 60) {
                   val = 60
                 }
-                if (val.length === 2) {
+                if (val.toString().length === 2) {
                   setMinutes(val)
                   setSecondsInput.current.focus()
                 } else {
@@ -352,7 +352,7 @@ export default function HomeScreen ({ navigation }) {
                 if (val > 60) {
                   val = 60
                 }
-                if (val.length === 2) {
+                if (val.toString().length === 2) {
                   setSeconds(val)
                   setSecondsInput.current.blur()
                 } else {
@@ -397,9 +397,9 @@ export default function HomeScreen ({ navigation }) {
                 if (val > 23) {
                   val = 23
                 }
-                if (val.length === 2) {
+                if (val.toString().length === 2) {
                   setFhours(val)
-                  setMinutesInput.current.focus()
+                  setFminutesInput.current.focus()
                 } else {
                   setFhours(val)
                 }
@@ -424,7 +424,7 @@ export default function HomeScreen ({ navigation }) {
                 if (val > 59) {
                   val = 59
                 }
-                if (val.length === 2) {
+                if (val.toString().length === 2) {
                   setFminutes(val)
                   setFsecondsInput.current.focus()
                 } else {
@@ -451,7 +451,7 @@ export default function HomeScreen ({ navigation }) {
                 if (val > 59) {
                   val = 59
                 }
-                if (val.length === 2) {
+                if (val.toString().length === 2) {
                   setFseconds(val)
                   setFsecondsInput.current.blur()
                 } else {

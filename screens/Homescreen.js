@@ -52,7 +52,7 @@ export default function HomeScreen ({ navigation }) {
   //State variables
   const [totalTime, setTotalTime] = useState(0)
   const [remainingTime, setRemainingTime] = useState(0)
-  const [announce, setAnnounce] = useState(true)
+  const [announce, setAnnounce] = useState(false)
   const [frequency, setFrequency] = useState(30)
   const [timerRunning, setTimerRunning] = useState(false)
   useEffect(() => {
@@ -129,6 +129,9 @@ export default function HomeScreen ({ navigation }) {
 
   //Speech functionality
   function speak (time) {
+    if (!announce) {
+      return
+    }
     time = timeConverter(time)
 
     let timeSegments = time.split(':')

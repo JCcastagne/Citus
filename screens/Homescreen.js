@@ -53,11 +53,11 @@ export default function HomeScreen ({ navigation }) {
   const [totalTime, setTotalTime] = useState(0)
   const [remainingTime, setRemainingTime] = useState(0)
   const [announce, setAnnounce] = useState(true)
-  const [frequency, setFrequency] = useState(15)
+  const [frequency, setFrequency] = useState(30)
   const [timerRunning, setTimerRunning] = useState(false)
-  // useEffect(() => {
-  //   setRemainingTime(totalTime)
-  // }, [totalTime])
+  useEffect(() => {
+    setRemainingTime(totalTime)
+  }, [totalTime])
 
   //State variables for user input countdown times
   const [hours, setHours] = useState(0)
@@ -115,15 +115,39 @@ export default function HomeScreen ({ navigation }) {
       setIntervalId(0)
       return
     }
+
+    // console.log(`
+    //   currentRemainingTime:${remainingTime}
+    //   timeToAnnounce:${timeToAnnounce}
+    // `)
+
     const newIntervalId = setInterval(() => {
       setRemainingTime(remainingTime => remainingTime - 1)
     }, 1000)
     setIntervalId(newIntervalId)
   }
 
+  const [timeToAnnounce, setTimeToAnnounce] = useState(0)
+  useEffect(() => {
+    setTimeToAnnounce(totalTime - frequency)
+  }, [totalTime, frequency])
+
+  useEffect(() => {
+    console.log(`
+      currentRemainingTime:${remainingTime}
+      timeToAnnounce:${timeToAnnounce}
+    `)
+
+    if (remainingTime === timeToAnnounce) {
+      speak(remainingTime)
+      setTimeToAnnounce(timeToAnnounce => timeToAnnounce - frequency)
+    }
+  }, [remainingTime])
+
   //Speech functionality
-  function speak (thingToSay) {
-    Speech.speak(thingToSay)
+  function speak (time) {
+    console.log(timeConverter(time))
+    // Speech.speak(`${remainingTime} seconds remaining`)
   }
 
   // useEffect(() => {

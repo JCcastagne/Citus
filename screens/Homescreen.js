@@ -99,14 +99,6 @@ export default function HomeScreen ({ navigation }) {
     setFrequency(totalSeconds)
   }, [fHours, fMinutes, fSeconds])
 
-  // refs
-  const [
-    setMinutesInput,
-    setSecondsInput,
-    setFminutesInput,
-    setFsecondsInput
-  ] = Array.from({ length: 4 }, () => useRef(null))
-
   //Timer countdown functionality
   const [intervalId, setIntervalId] = useState(0)
   const toggleTimer = () => {
@@ -122,17 +114,13 @@ export default function HomeScreen ({ navigation }) {
     setIntervalId(newIntervalId)
   }
 
+  //Timer announce functionality
   const [timeToAnnounce, setTimeToAnnounce] = useState(0)
   useEffect(() => {
     setTimeToAnnounce(totalTime - frequency)
   }, [totalTime, frequency])
 
   useEffect(() => {
-    console.log(`
-      currentRemainingTime:${remainingTime}
-      timeToAnnounce:${timeToAnnounce}
-    `)
-
     if (remainingTime === timeToAnnounce) {
       speak(remainingTime)
       setTimeToAnnounce(timeToAnnounce => timeToAnnounce - frequency)
@@ -142,16 +130,27 @@ export default function HomeScreen ({ navigation }) {
   //Speech functionality
   function speak (time) {
     time = timeConverter(time)
-    console.log(time)
-    let blocks = time.split(':')
-    if (blocks[2]) {
+
+    let timeSegments = time.split(':')
+
+    if (timeSegments[2]) {
       Speech.speak(
-        `${blocks[0]} hours ${blocks[1]} minutes and ${blocks[2]} seconds remaining`
+        `${timeSegments[0]} hours ${timeSegments[1]} minutes and ${timeSegments[2]} seconds remaining`
       )
     } else {
-      Speech.speak(`${blocks[0]} minutes and ${blocks[1]} seconds remaining`)
+      Speech.speak(
+        `${timeSegments[0]} minutes and ${timeSegments[1]} seconds remaining`
+      )
     }
   }
+
+  // refs
+  const [
+    setMinutesInput,
+    setSecondsInput,
+    setFminutesInput,
+    setFsecondsInput
+  ] = Array.from({ length: 4 }, () => useRef(null))
 
   // useEffect(() => {
   //   console.log(`

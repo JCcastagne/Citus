@@ -116,11 +116,6 @@ export default function HomeScreen ({ navigation }) {
       return
     }
 
-    // console.log(`
-    //   currentRemainingTime:${remainingTime}
-    //   timeToAnnounce:${timeToAnnounce}
-    // `)
-
     const newIntervalId = setInterval(() => {
       setRemainingTime(remainingTime => remainingTime - 1)
     }, 1000)
@@ -146,8 +141,16 @@ export default function HomeScreen ({ navigation }) {
 
   //Speech functionality
   function speak (time) {
-    console.log(timeConverter(time))
-    // Speech.speak(`${remainingTime} seconds remaining`)
+    time = timeConverter(time)
+    console.log(time)
+    let blocks = time.split(':')
+    if (blocks[2]) {
+      Speech.speak(
+        `${blocks[0]} hours ${blocks[1]} minutes and ${blocks[2]} seconds remaining`
+      )
+    } else {
+      Speech.speak(`${blocks[0]} minutes and ${blocks[1]} seconds remaining`)
+    }
   }
 
   // useEffect(() => {

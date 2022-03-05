@@ -15,7 +15,6 @@ import { useEffect, useState, useRef } from 'react'
 
 const width = Dimensions.get('window').width
 const height = Dimensions.get('window').height
-const visualizerScale = 1.25
 
 function timeConverter (seconds) {
   /**
@@ -277,37 +276,6 @@ export default function HomeScreen ({ navigation }) {
           </View>
         </View>
 
-        <ImageBackground
-          id='visualizer'
-          style={{
-            width: 115 * visualizerScale,
-            height: 286 * visualizerScale,
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-          source={require('../assets/meter.png')}
-        >
-          <View
-            id='visualizerMeterWrapper'
-            style={{
-              width: 56 * visualizerScale,
-              height: 220 * visualizerScale
-            }}
-          >
-            <View
-              id='visualizerMeter'
-              style={{
-                backgroundColor: '#3FDBF2',
-                width: '100%',
-                height: '66%',
-                borderRadius: 13 * visualizerScale,
-                position: 'absolute',
-                bottom: 0
-              }}
-            ></View>
-          </View>
-        </ImageBackground>
-
         <Pressable
           id='startStop'
           onPress={() => {
@@ -320,6 +288,7 @@ export default function HomeScreen ({ navigation }) {
               toggleTimer()
             }
           }}
+          style={{ width: '100%' }}
         >
           {() => {
             if (timerRunning === false) {
@@ -329,8 +298,7 @@ export default function HomeScreen ({ navigation }) {
                     source={require('../assets/startButtonBG.png')}
                     style={{
                       height: 49,
-                      width: 291,
-                      // width: '100%',
+                      width: '100%',
                       borderRadius: 14,
                       overflow: 'hidden',
                       alignItems: 'center',
@@ -361,8 +329,7 @@ export default function HomeScreen ({ navigation }) {
                     source={require('../assets/startButtonBG.png')}
                     style={{
                       height: 49,
-                      width: 291,
-                      // width: '100%',
+                      width: '100%',
                       borderRadius: 14,
                       overflow: 'hidden',
                       alignItems: 'center',

@@ -48,6 +48,11 @@ function timeConverter (seconds) {
 }
 
 export default function HomeScreen ({ navigation }) {
+  //Image source
+  const [imageSource, setImageSource] = useState(
+    'https://reactjs.org/logo-og.png'
+  )
+
   //State variables
   const [totalTime, setTotalTime] = useState(0)
   const [remainingTime, setRemainingTime] = useState(0)
@@ -146,6 +151,57 @@ export default function HomeScreen ({ navigation }) {
     }
   }
 
+  //SettingViewBackground
+  function setViewBackground () {
+    let accessKey = `HB-4Z23pQJyXP-jlu7rzYNpvecL_XivjIqhuEVR1-wU`
+    let url = `https://api.unsplash.com/photos/random/?client_id=${accessKey}`
+
+    let URLparams = {
+      width: 600,
+      height: 600,
+      fit: 'crop'
+    }
+
+    let imageOfTheDayURL = ''
+
+    let postFetchParams = `&w=${URLparams.width}&h=${URLparams.height}&fit=${URLparams.fit}`
+    let imageOfTheDaySource = ''
+
+    async function getImageOfTheDay () {
+      await fetch(url, {
+        method: 'GET',
+        headers: {
+          Authorization: `${accessKey}`,
+          'Content-Type': 'application/json',
+          'Accept-Version': 'v1'
+        }
+      })
+        .then(resp => {
+          if (resp.ok) {
+            console.log(`good response for getImageOfTheDay()`)
+            return resp.json()
+          } else {
+            throw new Error(resp.status)
+          }
+        })
+        .then(data => {
+          let imageOfTheDayURL = `${data.urls.raw}${postFetchParams}`
+          console.log(imageOfTheDayURL)
+          setImageSource(imageOfTheDayURL)
+        })
+        .catch(err => {
+          let msg = `Unable to load image of the day`
+          console.log(err, msg)
+        })
+    }
+    getImageOfTheDay()
+  }
+
+  useEffect(() => {
+    setViewBackground()
+    console.log(imageSource)
+  }, [imageSource])
+
   // refs
   const [
     setMinutesInput,
@@ -208,7 +264,7 @@ export default function HomeScreen ({ navigation }) {
         </Pressable>
       </View>
 
-      <View
+      <ImageBackground
         id='visualizer'
         style={{
           marginTop: 34,
@@ -219,6 +275,7 @@ export default function HomeScreen ({ navigation }) {
           height: 384,
           width: width - 34
         }}
+        source={{ uri: imageSource }}
       >
         <View
           id='timeInfo'
@@ -372,7 +429,7 @@ export default function HomeScreen ({ navigation }) {
             }
           }}
         </Pressable>
-      </View>
+      </ImageBackground>
 
       <View id='controls' style={styles.controlsContainer}>
         <View id='time' style={styles.controlLine}>

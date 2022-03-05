@@ -179,7 +179,8 @@ export default function HomeScreen ({ navigation }) {
     <View
       style={{
         ...styles.container,
-        backgroundColor: '#F2F2F2'
+        backgroundColor: '#F2F2F2',
+        paddingTop: 80
       }}
     >
       <StatusBar style='auto' />
@@ -188,7 +189,9 @@ export default function HomeScreen ({ navigation }) {
         id='navigation'
         style={{
           ...styles.controlLine,
-          width: '100%'
+          width: '100%',
+          paddingHorizontal: 34,
+          padding: 0
         }}
       >
         <Text style={styles.title}>Citus</Text>
@@ -332,7 +335,7 @@ export default function HomeScreen ({ navigation }) {
         </Pressable>
       </View>
 
-      <View id='controls' style={{ width: '100%' }}>
+      <View id='controls' style={styles.controlsContainer}>
         <View id='time' style={styles.controlLine}>
           <Text style={styles.controlLabels}>Time</Text>
           <View
@@ -365,7 +368,7 @@ export default function HomeScreen ({ navigation }) {
                 setMinutesInput.current.focus()
               }}
               style={styles.controlInputs}
-              placeholderTextColor='#58B0D1'
+              placeholderTextColor='#272727A8'
             />
             <Text style={styles.controlInputs}>:</Text>
             <TextInput
@@ -392,7 +395,7 @@ export default function HomeScreen ({ navigation }) {
                 setSecondsInput.current.focus()
               }}
               style={styles.controlInputs}
-              placeholderTextColor='#58B0D1'
+              placeholderTextColor='#272727A8'
             />
             <Text style={styles.controlInputs}>:</Text>
             <TextInput
@@ -416,7 +419,7 @@ export default function HomeScreen ({ navigation }) {
               importantForAutofill='no'
               maxLength={2}
               style={styles.controlInputs}
-              placeholderTextColor='#58B0D1'
+              placeholderTextColor='#272727A8'
             />
           </View>
         </View>
@@ -464,7 +467,7 @@ export default function HomeScreen ({ navigation }) {
                 setFminutesInput.current.focus()
               }}
               style={styles.controlInputs}
-              placeholderTextColor='#58B0D1'
+              placeholderTextColor='#272727A8'
             />
             <Text style={styles.controlInputs}>:</Text>
             <TextInput
@@ -491,7 +494,7 @@ export default function HomeScreen ({ navigation }) {
                 setFsecondsInput.current.focus()
               }}
               style={styles.controlInputs}
-              placeholderTextColor='#58B0D1'
+              placeholderTextColor='#272727A8'
             />
             <Text style={styles.controlInputs}>:</Text>
             <TextInput
@@ -518,7 +521,7 @@ export default function HomeScreen ({ navigation }) {
                 setFsecondsInput.current.blur()
               }}
               style={styles.controlInputs}
-              placeholderTextColor='#58B0D1'
+              placeholderTextColor='#272727A8'
             />
           </View>
         </View>
@@ -532,27 +535,37 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
+  },
+  controlsContainer: {
+    width: '100%',
+    backgroundColor: '#FFF',
     paddingHorizontal: 34,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     paddingTop: Platform.OS === 'ios' ? 34 : 80,
-    paddingBottom: Platform.OS === 'ios' ? 41 : 38
+    paddingBottom: Platform.OS === 'ios' ? 41 : 38,
+    shadowColor: '#AEB9C2',
+    shadowRadius: 68,
+    shadowOffset: { height: 8 },
+    shadowOpacity: 14
   },
   controlLine: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: 8
+    paddingBottom: 10
   },
   controlLabels: {
     fontFamily: 'Poppins_600SemiBold',
-    fontSize: 17,
-    color: '#58B0D1'
+    fontSize: 20,
+    color: '#272727A8'
   },
   controlInputs: {
     fontFamily: 'Poppins_400Regular',
-    fontSize: 17,
-    color: '#58B0D1',
+    fontSize: 20,
+    color: '#272727A8',
     paddingHorizontal: 2
   },
   title: {

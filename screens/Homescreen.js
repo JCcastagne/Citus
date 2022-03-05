@@ -320,51 +320,84 @@ export default function HomeScreen ({ navigation }) {
               toggleTimer()
             }
           }}
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            backgroundColor: '#007B8B',
-            paddingVertical: 4,
-            paddingHorizontal: 17,
-            borderRadius: 99
-          }}
         >
           {() => {
             if (timerRunning === false) {
               return (
                 <>
-                  <Image
-                    source={require('../assets/play.png')}
-                    style={{ height: 16, width: 16, marginRight: 6 }}
-                  />
-                  <Text
+                  <ImageBackground
+                    source={require('../assets/startButtonBG.png')}
                     style={{
-                      fontFamily: 'Poppins_400Regular',
-                      fontSize: 17,
-                      color: '#F0F2F5'
+                      height: 49,
+                      width: 291,
+                      // width: '100%',
+                      borderRadius: 14,
+                      overflow: 'hidden',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexDirection: 'row'
                     }}
                   >
-                    Start
-                  </Text>
+                    <Image
+                      source={require('../assets/play.png')}
+                      style={{ height: 16, width: 16, marginRight: 6 }}
+                    />
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins_400Regular',
+                        fontSize: 17,
+                        color: '#F0F2F5'
+                      }}
+                    >
+                      Start
+                    </Text>
+                  </ImageBackground>
                 </>
               )
             } else {
               return (
                 <>
-                  <Image
-                    source={require('../assets/stop.png')}
-                    style={{ height: 16, width: 16, marginRight: 6 }}
-                  />
-                  <Text
+                  <ImageBackground
+                    source={require('../assets/startButtonBG.png')}
                     style={{
-                      fontFamily: 'Poppins_400Regular',
-                      fontSize: 17,
-                      color: '#F0F2F5',
-                      paddingHorizontal: 1
+                      height: 49,
+                      width: 291,
+                      // width: '100%',
+                      borderRadius: 14,
+                      overflow: 'hidden',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexDirection: 'row',
+                      padding: 2
                     }}
                   >
-                    Stop
-                  </Text>
+                    <View
+                      style={{
+                        backgroundColor: '#FFF',
+                        height: '100%',
+                        width: '100%',
+                        borderRadius: 12,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexDirection: 'row'
+                      }}
+                    >
+                      <Image
+                        source={require('../assets/stop.png')}
+                        style={{ height: 16, width: 16, marginRight: 6 }}
+                      />
+                      <Text
+                        style={{
+                          fontFamily: 'Poppins_400Regular',
+                          fontSize: 17,
+                          color: '#16A7CE',
+                          paddingHorizontal: 1
+                        }}
+                      >
+                        Stop
+                      </Text>
+                    </View>
+                  </ImageBackground>
                 </>
               )
             }

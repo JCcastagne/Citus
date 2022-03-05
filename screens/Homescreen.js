@@ -215,19 +215,67 @@ export default function HomeScreen ({ navigation }) {
           flex: 1,
           flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          width: width - 34
         }}
       >
-        <Text
-          id='totalTime'
+        <View
+          id='timeInfo'
           style={{
-            fontFamily: 'Poppins_400Regular',
-            fontSize: 17,
-            color: '#6DBDC9'
+            flexDirection: 'row',
+            alignItems: 'flex-end',
+            justifyContent: 'space-between',
+            width: '100%'
           }}
         >
-          {timeConverter(totalTime)}
-        </Text>
+          <View id='remainingTime'>
+            <Text
+              id='remainingTime'
+              style={{
+                fontFamily: 'Poppins_600SemiBold',
+                fontSize: 51,
+                color: '#272727',
+                marginBottom: -4
+              }}
+            >
+              {remainingTime === 0 ? '00:00' : timeConverter(remainingTime)}
+            </Text>
+            <Text
+              id='remainingTimeLabel'
+              style={{
+                fontFamily: 'Poppins_400Regular',
+                fontSize: 14,
+                color: '#272727'
+              }}
+            >
+              Time left
+            </Text>
+          </View>
+
+          <View id='totalTime' style={{ alignItems: 'flex-end' }}>
+            <Text
+              id='totalTime'
+              style={{
+                fontFamily: 'Poppins_400Regular',
+                fontSize: 22,
+                color: '#272727A8',
+                marginBottom: 7
+              }}
+            >
+              {timeConverter(totalTime)}
+            </Text>
+            <Text
+              id='totalTimeLabel'
+              style={{
+                fontFamily: 'Poppins_400Regular',
+                fontSize: 14,
+                color: '#272727A8'
+              }}
+            >
+              Total time
+            </Text>
+          </View>
+        </View>
 
         <ImageBackground
           id='visualizer'
@@ -259,17 +307,6 @@ export default function HomeScreen ({ navigation }) {
             ></View>
           </View>
         </ImageBackground>
-
-        <Text
-          id='remainingTime'
-          style={{
-            fontFamily: 'Poppins_600SemiBold',
-            fontSize: 51,
-            color: '#007B8B'
-          }}
-        >
-          {remainingTime === 0 ? '00:00' : timeConverter(remainingTime)}
-        </Text>
 
         <Pressable
           id='startStop'

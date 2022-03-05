@@ -179,7 +179,7 @@ export default function HomeScreen ({ navigation }) {
     <View
       style={{
         ...styles.container,
-        backgroundColor: '#EBEDF0'
+        backgroundColor: '#F2F2F2'
       }}
     >
       <StatusBar style='auto' />
@@ -191,16 +191,18 @@ export default function HomeScreen ({ navigation }) {
           width: '100%'
         }}
       >
-        <Image
-          source={require('../assets/citus_logo_small.png')}
-          style={{ height: 26.74, width: 106.96, marginBottom: 2 }}
-        />
+        <Text style={styles.title}>Citus</Text>
         <Pressable
           onPress={() => {
             navigation.navigate('Settings')
           }}
         >
-          <Image style={styles.icons} source={require('../assets/menu.png')} />
+          <View style={styles.navIcon}>
+            <Image
+              style={styles.icons}
+              source={require('../assets/menu.png')}
+            />
+          </View>
         </Pressable>
       </View>
 
@@ -553,8 +555,22 @@ const styles = StyleSheet.create({
     color: '#58B0D1',
     paddingHorizontal: 2
   },
+  title: {
+    fontSize: 34,
+    fontFamily: 'Poppins_700Bold',
+    color: '#272727'
+  },
   icons: {
-    width: 24,
-    height: 24
+    width: 28,
+    height: 28
+  },
+  navIcon: {
+    padding: 10,
+    backgroundColor: '#FFF',
+    borderRadius: 14,
+    shadowColor: '#AEB9C2',
+    shadowRadius: 34,
+    shadowOffset: { height: 8 },
+    shadowOpacity: 42
   }
 })

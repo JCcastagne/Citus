@@ -211,10 +211,12 @@ export default function HomeScreen ({ navigation }) {
       <View
         id='visualizer'
         style={{
-          flex: 1,
+          marginTop: 34,
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
+          backgroundColor: '#FFF',
+          height: 384,
           width: width - 34
         }}
       >
@@ -571,8 +573,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: 'center'
+    // justifyContent: 'center'
   },
   controlsContainer: {
     width: '100%',
@@ -585,7 +587,9 @@ const styles = StyleSheet.create({
     shadowColor: '#AEB9C2',
     shadowRadius: 68,
     shadowOffset: { height: 8 },
-    shadowOpacity: 14
+    shadowOpacity: 14,
+    position: 'absolute',
+    bottom: 0
   },
   controlLine: {
     display: 'flex',

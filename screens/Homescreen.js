@@ -168,10 +168,7 @@ export default function HomeScreen ({ navigation }) {
       fit: 'crop'
     }
 
-    let imageOfTheDayURL = ''
-
     let postFetchParams = `&w=${URLparams.width}&h=${URLparams.height}&fit=${URLparams.fit}`
-    let imageOfTheDaySource = ''
 
     async function getImageOfTheDay () {
       await fetch(url, {
@@ -192,7 +189,6 @@ export default function HomeScreen ({ navigation }) {
         })
         .then(data => {
           let imageOfTheDayURL = `${data.urls.raw}${postFetchParams}`
-          console.log(imageOfTheDayURL)
           setImageSource(imageOfTheDayURL)
           setImageCredits({
             name: `${data.user.first_name} ${data.user.last_name}`,

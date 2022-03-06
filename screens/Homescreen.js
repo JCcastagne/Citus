@@ -8,7 +8,8 @@ import {
   TextInput,
   ImageBackground,
   Platform,
-  Dimensions
+  Dimensions,
+  Linking
 } from 'react-native'
 import * as Speech from 'expo-speech'
 import { useEffect, useState, useRef } from 'react'
@@ -50,8 +51,13 @@ function timeConverter (seconds) {
 export default function HomeScreen ({ navigation }) {
   //Image source
   const [imageSource, setImageSource] = useState(
-    'https://reactjs.org/logo-og.png'
+    'https://images.unsplash.com/photo-1644962986863-d075ee548966?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1476&q=80'
   )
+  const [imageCredits, setImageCredits] = useState({
+    name: 'Matt Hans',
+    profileURL: 'https://unsplash.com/@matthanns',
+    websiteURL: 'https://unsplash.com'
+  })
 
   //State variables
   const [totalTime, setTotalTime] = useState(0)
@@ -154,11 +160,11 @@ export default function HomeScreen ({ navigation }) {
   //SettingViewBackground
   function setViewBackground () {
     let accessKey = `HB-4Z23pQJyXP-jlu7rzYNpvecL_XivjIqhuEVR1-wU`
-    let url = `https://api.unsplash.com/photos/random/?client_id=${accessKey}`
+    let url = `https://api.unsplash.com/photos/random/?client_id=${accessKey}&query=landscape-forest-lake?color=blue`
 
     let URLparams = {
-      width: 600,
-      height: 600,
+      width: 681,
+      height: 772,
       fit: 'crop'
     }
 
@@ -188,6 +194,11 @@ export default function HomeScreen ({ navigation }) {
           let imageOfTheDayURL = `${data.urls.raw}${postFetchParams}`
           console.log(imageOfTheDayURL)
           setImageSource(imageOfTheDayURL)
+          setImageCredits({
+            name: `${data.user.first_name} ${data.user.last_name}`,
+            profileURL: `${data.user.links.self}`,
+            websiteURL: 'https://unsplash.com'
+          })
         })
         .catch(err => {
           let msg = `Unable to load image of the day`
@@ -196,7 +207,6 @@ export default function HomeScreen ({ navigation }) {
     }
     getImageOfTheDay()
   }
-
   useEffect(() => {
     setViewBackground()
     console.log(imageSource)
@@ -429,6 +439,23 @@ export default function HomeScreen ({ navigation }) {
             }
           }}
         </Pressable>
+
+        <View id='imageCredits'>
+          <Text>Picture by</Text>
+          <Text
+            onPress={() => {
+              Linking.openURL(`${imageCredits.profileURL}`)
+            }}
+          >{`${imageCredits.name}`}</Text>
+          <Text>on</Text>
+          <Text
+            onPress={() => {
+              Linking.openURL(`${imageCredits.websiteURL}`)
+            }}
+          >
+            Unsplash
+          </Text>
+        </View>
       </ImageBackground>
 
       <View id='controls' style={styles.controlsContainer}>

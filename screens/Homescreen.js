@@ -298,12 +298,13 @@ export default function HomeScreen ({ navigation }) {
           style={{
             flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'space-between',
             height: 384,
             width: width - 34,
             borderRadius: 28,
-            overflow: 'hidden'
-            // padding: 25
+            overflow: 'hidden',
+            paddingTop: 25,
+            paddingHorizontal: 25
           }}
           source={require('../assets/photo-of-the-dayGradientOverlay.png')}
         >
@@ -364,116 +365,129 @@ export default function HomeScreen ({ navigation }) {
             </View>
           </View>
 
-          <Pressable
-            id='startStop'
-            onPress={() => {
-              if (timerRunning == true) {
-                setTimerRunning(false)
-                toggleTimer()
-              } else {
-                setRemainingTime(totalTime)
-                setTimerRunning(true)
-                toggleTimer()
-              }
-            }}
-            style={{ width: '100%' }}
-          >
-            {() => {
-              if (timerRunning === false) {
-                return (
-                  <>
-                    <ImageBackground
-                      source={require('../assets/startButtonBG.png')}
-                      style={{
-                        height: 49,
-                        width: '100%',
-                        borderRadius: 14,
-                        overflow: 'hidden',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        flexDirection: 'row'
-                      }}
-                    >
-                      <Image
-                        source={require('../assets/play.png')}
-                        style={{ height: 16, width: 16, marginRight: 6 }}
-                      />
-                      <Text
+          <View style={{ width: '100%' }}>
+            <Pressable
+              id='startStop'
+              onPress={() => {
+                if (timerRunning == true) {
+                  setTimerRunning(false)
+                  toggleTimer()
+                } else {
+                  setRemainingTime(totalTime)
+                  setTimerRunning(true)
+                  toggleTimer()
+                }
+              }}
+              style={{ width: '100%' }}
+            >
+              {() => {
+                if (timerRunning === false) {
+                  return (
+                    <>
+                      <ImageBackground
+                        source={require('../assets/startButtonBG.png')}
                         style={{
-                          fontFamily: 'Poppins_400Regular',
-                          fontSize: 17,
-                          color: '#F0F2F5'
-                        }}
-                      >
-                        Start
-                      </Text>
-                    </ImageBackground>
-                  </>
-                )
-              } else {
-                return (
-                  <>
-                    <ImageBackground
-                      source={require('../assets/startButtonBG.png')}
-                      style={{
-                        height: 49,
-                        width: '100%',
-                        borderRadius: 14,
-                        overflow: 'hidden',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        flexDirection: 'row',
-                        padding: 2
-                      }}
-                    >
-                      <View
-                        style={{
-                          backgroundColor: '#FFF',
-                          height: '100%',
+                          height: 49,
                           width: '100%',
-                          borderRadius: 12,
+                          borderRadius: 14,
+                          overflow: 'hidden',
                           alignItems: 'center',
                           justifyContent: 'center',
                           flexDirection: 'row'
                         }}
                       >
                         <Image
-                          source={require('../assets/stop.png')}
+                          source={require('../assets/play.png')}
                           style={{ height: 16, width: 16, marginRight: 6 }}
                         />
                         <Text
                           style={{
                             fontFamily: 'Poppins_400Regular',
                             fontSize: 17,
-                            color: '#16A7CE',
-                            paddingHorizontal: 1
+                            color: '#F0F2F5'
                           }}
                         >
-                          Stop
+                          Start
                         </Text>
-                      </View>
-                    </ImageBackground>
-                  </>
-                )
-              }
-            }}
-          </Pressable>
+                      </ImageBackground>
+                    </>
+                  )
+                } else {
+                  return (
+                    <>
+                      <ImageBackground
+                        source={require('../assets/startButtonBG.png')}
+                        style={{
+                          height: 49,
+                          width: '100%',
+                          borderRadius: 14,
+                          overflow: 'hidden',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexDirection: 'row',
+                          padding: 2
+                        }}
+                      >
+                        <View
+                          style={{
+                            backgroundColor: '#FFF',
+                            height: '100%',
+                            width: '100%',
+                            borderRadius: 12,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexDirection: 'row'
+                          }}
+                        >
+                          <Image
+                            source={require('../assets/stop.png')}
+                            style={{ height: 16, width: 16, marginRight: 6 }}
+                          />
+                          <Text
+                            style={{
+                              fontFamily: 'Poppins_400Regular',
+                              fontSize: 17,
+                              color: '#16A7CE',
+                              paddingHorizontal: 1
+                            }}
+                          >
+                            Stop
+                          </Text>
+                        </View>
+                      </ImageBackground>
+                    </>
+                  )
+                }
+              }}
+            </Pressable>
 
-          <View id='imageCredits'>
-            <Text>Picture by</Text>
-            <Text
-              onPress={() => {
-                Linking.openURL(`${imageCredits.profileURL}`)
-              }}
-            >{`${imageCredits.name}`}</Text>
-            <Text>on</Text>
-            <Text
-              onPress={() => {
-                Linking.openURL(`${imageCredits.websiteURL}`)
-              }}
+            <View
+              id='imageCredits'
+              style={{ flexDirection: 'row', alignItems: 'center' }}
             >
-              Unsplash
-            </Text>
+              <Text style={styles.creditsLabel}>Picture by </Text>
+              <Text
+                onPress={() => {
+                  Linking.openURL(`${imageCredits.profileURL}`)
+                }}
+                style={{
+                  ...styles.creditsLabel,
+                  fontFamily: 'Poppins_500Medium'
+                }}
+              >{`${imageCredits.name} `}</Text>
+              <Text style={styles.creditsLabel}>on </Text>
+              <Text
+                onPress={() => {
+                  Linking.openURL(`${imageCredits.websiteURL}`)
+                }}
+                style={{
+                  ...styles.creditsLabel,
+                  fontFamily: 'Poppins_500Medium'
+                }}
+              >
+                Unsplash
+              </Text>
+            </View>
           </View>
         </ImageBackground>
       </ImageBackground>
@@ -680,6 +694,31 @@ const styles = StyleSheet.create({
     alignItems: 'center'
     // justifyContent: 'center'
   },
+  title: {
+    fontSize: 34,
+    fontFamily: 'Poppins_700Bold',
+    color: '#272727'
+  },
+  icons: {
+    width: 28,
+    height: 28
+  },
+  navIcon: {
+    padding: 10,
+    backgroundColor: '#FFF',
+    borderRadius: 14,
+    shadowColor: '#AEB9C2',
+    shadowRadius: 34,
+    shadowOffset: { height: 8 },
+    shadowOpacity: 42
+  },
+  creditsLabel: {
+    fontFamily: 'Poppins_400Regular',
+    fontSize: 12,
+    paddingTop: 7,
+    marginBottom: 16,
+    color: '#F2F2F26B'
+  },
   controlsContainer: {
     width: '100%',
     backgroundColor: '#FFF',
@@ -721,23 +760,5 @@ const styles = StyleSheet.create({
     transform:
       Platform.OS === 'ios' ? [{ translateY: -1 }] : [{ translateY: -4 }],
     paddingRight: Platform.OS === 'ios' ? 0 : 2
-  },
-  title: {
-    fontSize: 34,
-    fontFamily: 'Poppins_700Bold',
-    color: '#272727'
-  },
-  icons: {
-    width: 28,
-    height: 28
-  },
-  navIcon: {
-    padding: 10,
-    backgroundColor: '#FFF',
-    borderRadius: 14,
-    shadowColor: '#AEB9C2',
-    shadowRadius: 34,
-    shadowOffset: { height: 8 },
-    shadowOpacity: 42
   }
 })

@@ -196,7 +196,7 @@ export default function HomeScreen ({ navigation }) {
           setImageSource(imageOfTheDayURL)
           setImageCredits({
             name: `${data.user.first_name} ${data.user.last_name}`,
-            profileURL: `${data.user.links.self}`,
+            profileURL: `${data.user.links.html}`,
             websiteURL: 'https://unsplash.com'
           })
         })

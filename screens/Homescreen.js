@@ -251,7 +251,8 @@ export default function HomeScreen ({ navigation }) {
           width: width,
           height: height,
           position: 'absolute',
-          top: 80
+          top: 45
+          //top: 80 (top padding for custom safeAreaView)
         }}
         source={require('../assets/visualizerBackgroundBlur.png')}
       ></Image>
@@ -284,9 +285,6 @@ export default function HomeScreen ({ navigation }) {
         id='visualizer'
         style={{
           marginTop: 30,
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
           backgroundColor: '#FFF',
           height: 384,
           width: width - 34,
@@ -295,174 +293,189 @@ export default function HomeScreen ({ navigation }) {
         }}
         source={{ uri: imageSource }}
       >
-        <View
-          id='timeInfo'
+        <ImageBackground
+          id='gradientOverlay'
           style={{
-            flexDirection: 'row',
-            alignItems: 'flex-end',
-            justifyContent: 'space-between',
-            width: '100%'
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: 384,
+            width: width - 34,
+            borderRadius: 28,
+            overflow: 'hidden'
+            // padding: 25
           }}
+          source={require('../assets/photo-of-the-dayGradientOverlay.png')}
         >
-          <View id='remainingTime'>
-            <Text
-              id='remainingTime'
-              style={{
-                fontFamily: 'Poppins_600SemiBold',
-                fontSize: 51,
-                color: '#272727'
-              }}
-            >
-              {remainingTime === 0 ? '00:00' : timeConverter(remainingTime)}
-            </Text>
-            <Text
-              id='remainingTimeLabel'
-              style={{
-                fontFamily: 'Poppins_400Regular',
-                fontSize: 14,
-                color: '#272727'
-              }}
-            >
-              Time left
-            </Text>
+          <View
+            id='timeInfo'
+            style={{
+              flexDirection: 'row',
+              alignItems: 'flex-end',
+              justifyContent: 'space-between',
+              width: '100%'
+            }}
+          >
+            <View id='remainingTime'>
+              <Text
+                id='remainingTime'
+                style={{
+                  fontFamily: 'Poppins_600SemiBold',
+                  fontSize: 51,
+                  color: '#272727'
+                }}
+              >
+                {remainingTime === 0 ? '00:00' : timeConverter(remainingTime)}
+              </Text>
+              <Text
+                id='remainingTimeLabel'
+                style={{
+                  fontFamily: 'Poppins_400Regular',
+                  fontSize: 14,
+                  color: '#272727'
+                }}
+              >
+                Time left
+              </Text>
+            </View>
+
+            <View id='totalTime' style={{ alignItems: 'flex-end' }}>
+              <Text
+                id='totalTime'
+                style={{
+                  fontFamily: 'Poppins_400Regular',
+                  fontSize: 22,
+                  color: '#272727A8',
+                  marginBottom: 7
+                }}
+              >
+                {timeConverter(totalTime)}
+              </Text>
+              <Text
+                id='totalTimeLabel'
+                style={{
+                  fontFamily: 'Poppins_400Regular',
+                  fontSize: 14,
+                  color: '#272727A8'
+                }}
+              >
+                Total time
+              </Text>
+            </View>
           </View>
 
-          <View id='totalTime' style={{ alignItems: 'flex-end' }}>
-            <Text
-              id='totalTime'
-              style={{
-                fontFamily: 'Poppins_400Regular',
-                fontSize: 22,
-                color: '#272727A8',
-                marginBottom: 7
-              }}
-            >
-              {timeConverter(totalTime)}
-            </Text>
-            <Text
-              id='totalTimeLabel'
-              style={{
-                fontFamily: 'Poppins_400Regular',
-                fontSize: 14,
-                color: '#272727A8'
-              }}
-            >
-              Total time
-            </Text>
-          </View>
-        </View>
-
-        <Pressable
-          id='startStop'
-          onPress={() => {
-            if (timerRunning == true) {
-              setTimerRunning(false)
-              toggleTimer()
-            } else {
-              setRemainingTime(totalTime)
-              setTimerRunning(true)
-              toggleTimer()
-            }
-          }}
-          style={{ width: '100%' }}
-        >
-          {() => {
-            if (timerRunning === false) {
-              return (
-                <>
-                  <ImageBackground
-                    source={require('../assets/startButtonBG.png')}
-                    style={{
-                      height: 49,
-                      width: '100%',
-                      borderRadius: 14,
-                      overflow: 'hidden',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      flexDirection: 'row'
-                    }}
-                  >
-                    <Image
-                      source={require('../assets/play.png')}
-                      style={{ height: 16, width: 16, marginRight: 6 }}
-                    />
-                    <Text
+          <Pressable
+            id='startStop'
+            onPress={() => {
+              if (timerRunning == true) {
+                setTimerRunning(false)
+                toggleTimer()
+              } else {
+                setRemainingTime(totalTime)
+                setTimerRunning(true)
+                toggleTimer()
+              }
+            }}
+            style={{ width: '100%' }}
+          >
+            {() => {
+              if (timerRunning === false) {
+                return (
+                  <>
+                    <ImageBackground
+                      source={require('../assets/startButtonBG.png')}
                       style={{
-                        fontFamily: 'Poppins_400Regular',
-                        fontSize: 17,
-                        color: '#F0F2F5'
-                      }}
-                    >
-                      Start
-                    </Text>
-                  </ImageBackground>
-                </>
-              )
-            } else {
-              return (
-                <>
-                  <ImageBackground
-                    source={require('../assets/startButtonBG.png')}
-                    style={{
-                      height: 49,
-                      width: '100%',
-                      borderRadius: 14,
-                      overflow: 'hidden',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      flexDirection: 'row',
-                      padding: 2
-                    }}
-                  >
-                    <View
-                      style={{
-                        backgroundColor: '#FFF',
-                        height: '100%',
+                        height: 49,
                         width: '100%',
-                        borderRadius: 12,
+                        borderRadius: 14,
+                        overflow: 'hidden',
                         alignItems: 'center',
                         justifyContent: 'center',
                         flexDirection: 'row'
                       }}
                     >
                       <Image
-                        source={require('../assets/stop.png')}
+                        source={require('../assets/play.png')}
                         style={{ height: 16, width: 16, marginRight: 6 }}
                       />
                       <Text
                         style={{
                           fontFamily: 'Poppins_400Regular',
                           fontSize: 17,
-                          color: '#16A7CE',
-                          paddingHorizontal: 1
+                          color: '#F0F2F5'
                         }}
                       >
-                        Stop
+                        Start
                       </Text>
-                    </View>
-                  </ImageBackground>
-                </>
-              )
-            }
-          }}
-        </Pressable>
+                    </ImageBackground>
+                  </>
+                )
+              } else {
+                return (
+                  <>
+                    <ImageBackground
+                      source={require('../assets/startButtonBG.png')}
+                      style={{
+                        height: 49,
+                        width: '100%',
+                        borderRadius: 14,
+                        overflow: 'hidden',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexDirection: 'row',
+                        padding: 2
+                      }}
+                    >
+                      <View
+                        style={{
+                          backgroundColor: '#FFF',
+                          height: '100%',
+                          width: '100%',
+                          borderRadius: 12,
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexDirection: 'row'
+                        }}
+                      >
+                        <Image
+                          source={require('../assets/stop.png')}
+                          style={{ height: 16, width: 16, marginRight: 6 }}
+                        />
+                        <Text
+                          style={{
+                            fontFamily: 'Poppins_400Regular',
+                            fontSize: 17,
+                            color: '#16A7CE',
+                            paddingHorizontal: 1
+                          }}
+                        >
+                          Stop
+                        </Text>
+                      </View>
+                    </ImageBackground>
+                  </>
+                )
+              }
+            }}
+          </Pressable>
 
-        <View id='imageCredits'>
-          <Text>Picture by</Text>
-          <Text
-            onPress={() => {
-              Linking.openURL(`${imageCredits.profileURL}`)
-            }}
-          >{`${imageCredits.name}`}</Text>
-          <Text>on</Text>
-          <Text
-            onPress={() => {
-              Linking.openURL(`${imageCredits.websiteURL}`)
-            }}
-          >
-            Unsplash
-          </Text>
-        </View>
+          <View id='imageCredits'>
+            <Text>Picture by</Text>
+            <Text
+              onPress={() => {
+                Linking.openURL(`${imageCredits.profileURL}`)
+              }}
+            >{`${imageCredits.name}`}</Text>
+            <Text>on</Text>
+            <Text
+              onPress={() => {
+                Linking.openURL(`${imageCredits.websiteURL}`)
+              }}
+            >
+              Unsplash
+            </Text>
+          </View>
+        </ImageBackground>
       </ImageBackground>
 
       <View id='controls' style={styles.controlsContainer}>

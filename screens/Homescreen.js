@@ -203,10 +203,10 @@ export default function HomeScreen ({ navigation }) {
     }
     getImageOfTheDay()
   }
-  useEffect(() => {
-    setViewBackground()
-    console.log(imageSource)
-  }, [imageSource])
+  // useEffect(() => {
+  //   setViewBackground()
+  //   console.log(imageSource)
+  // }, [imageSource])
 
   // refs
   const [
@@ -477,7 +477,7 @@ export default function HomeScreen ({ navigation }) {
                   setHours(val)
                 }
               }}
-              placeholder={'00'}
+              placeholder={Platform.OS === 'ios' ? '00' : '00 '}
               keyboardType='number-pad'
               returnKeyType='next'
               autoComplete='false'
@@ -489,7 +489,7 @@ export default function HomeScreen ({ navigation }) {
               style={styles.controlInputs}
               placeholderTextColor='#272727A8'
             />
-            <Text style={styles.controlInputs}>:</Text>
+            <Text style={styles.controlInputSpacer}>:</Text>
             <TextInput
               ref={setMinutesInput}
               onChangeText={val => {
@@ -504,7 +504,7 @@ export default function HomeScreen ({ navigation }) {
                   setMinutes(val)
                 }
               }}
-              placeholder={'30'}
+              placeholder={Platform.OS === 'ios' ? '30' : '30 '}
               keyboardType='number-pad'
               returnKeyType='next'
               autoComplete='false'
@@ -516,7 +516,7 @@ export default function HomeScreen ({ navigation }) {
               style={styles.controlInputs}
               placeholderTextColor='#272727A8'
             />
-            <Text style={styles.controlInputs}>:</Text>
+            <Text style={styles.controlInputSpacer}>:</Text>
             <TextInput
               ref={setSecondsInput}
               onChangeText={val => {
@@ -531,7 +531,7 @@ export default function HomeScreen ({ navigation }) {
                   setSeconds(val)
                 }
               }}
-              placeholder={'00'}
+              placeholder={Platform.OS === 'ios' ? '00' : '00 '}
               keyboardType='number-pad'
               returnKeyType='done'
               autoComplete='false'
@@ -576,7 +576,7 @@ export default function HomeScreen ({ navigation }) {
                   setFhours(val)
                 }
               }}
-              placeholder={'00'}
+              placeholder={Platform.OS === 'ios' ? '00' : '00 '}
               keyboardType='number-pad'
               returnKeyType='done'
               autoComplete='false'
@@ -588,7 +588,7 @@ export default function HomeScreen ({ navigation }) {
               style={styles.controlInputs}
               placeholderTextColor='#272727A8'
             />
-            <Text style={styles.controlInputs}>:</Text>
+            <Text style={styles.controlInputSpacer}>:</Text>
             <TextInput
               ref={setFminutesInput}
               onChangeText={val => {
@@ -603,7 +603,7 @@ export default function HomeScreen ({ navigation }) {
                   setFminutes(val)
                 }
               }}
-              placeholder={'00'}
+              placeholder={Platform.OS === 'ios' ? '00' : '00 '}
               keyboardType='number-pad'
               returnKeyType='done'
               autoComplete='false'
@@ -615,7 +615,7 @@ export default function HomeScreen ({ navigation }) {
               style={styles.controlInputs}
               placeholderTextColor='#272727A8'
             />
-            <Text style={styles.controlInputs}>:</Text>
+            <Text style={styles.controlInputSpacer}>:</Text>
             <TextInput
               ref={setFsecondsInput}
               onChangeText={val => {
@@ -630,7 +630,7 @@ export default function HomeScreen ({ navigation }) {
                   setFseconds(val)
                 }
               }}
-              placeholder={'30'}
+              placeholder={Platform.OS === 'ios' ? '30' : '30 '}
               keyboardType='number-pad'
               returnKeyType='done'
               autoComplete='false'
@@ -662,12 +662,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 34,
     borderTopLeftRadius: 28,
     borderTopRightRadius: 28,
-    paddingTop: Platform.OS === 'ios' ? 34 : 80,
-    paddingBottom: Platform.OS === 'ios' ? 41 : 38,
+    paddingTop: 34,
+    paddingBottom: Platform.OS === 'ios' ? 41 : 20,
     shadowColor: '#AEB9C2',
     shadowRadius: 68,
     shadowOffset: { height: 8 },
-    shadowOpacity: 14,
+    shadowOpacity: 0.56,
+    elevation: 20,
     position: 'absolute',
     bottom: 0
   },
@@ -686,8 +687,16 @@ const styles = StyleSheet.create({
   controlInputs: {
     fontFamily: 'Poppins_400Regular',
     fontSize: 20,
+    color: '#272727A8'
+  },
+  controlInputSpacer: {
+    fontFamily: 'Poppins_400Regular',
+    fontSize: 20,
     color: '#272727A8',
-    paddingHorizontal: 2
+    // lineHeight: Platform.OS === 'android' ? 18 : 0
+    transform:
+      Platform.OS === 'ios' ? [{ translateY: -1 }] : [{ translateY: -4 }],
+    paddingRight: Platform.OS === 'ios' ? 0 : 2
   },
   title: {
     fontSize: 34,

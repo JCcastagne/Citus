@@ -472,7 +472,8 @@ export default function HomeScreen ({ navigation }) {
                 }}
                 style={{
                   ...styles.creditsLabel,
-                  fontFamily: 'Poppins_500Medium'
+                  fontFamily: 'Poppins_400Regular',
+                  textDecorationLine: 'underline'
                 }}
               >{`${imageCredits.name} `}</Text>
               <Text style={styles.creditsLabel}>on </Text>
@@ -482,7 +483,8 @@ export default function HomeScreen ({ navigation }) {
                 }}
                 style={{
                   ...styles.creditsLabel,
-                  fontFamily: 'Poppins_500Medium'
+                  fontFamily: 'Poppins_400Regular',
+                  textDecorationLine: 'underline'
                 }}
               >
                 Unsplash

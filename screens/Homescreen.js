@@ -245,6 +245,16 @@ export default function HomeScreen ({ navigation }) {
       }}
     >
       <StatusBar style='auto' />
+      <Image
+        id='visualizerBackgroundBlur'
+        style={{
+          width: width,
+          height: height,
+          position: 'absolute',
+          top: 80
+        }}
+        source={require('../assets/visualizerBackgroundBlur.png')}
+      ></Image>
 
       <View
         id='navigation'

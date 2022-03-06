@@ -283,13 +283,15 @@ export default function HomeScreen ({ navigation }) {
       <ImageBackground
         id='visualizer'
         style={{
-          marginTop: 34,
+          marginTop: 30,
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: '#FFF',
           height: 384,
-          width: width - 34
+          width: width - 34,
+          borderRadius: 28,
+          overflow: 'hidden'
         }}
         source={{ uri: imageSource }}
       >
@@ -308,8 +310,7 @@ export default function HomeScreen ({ navigation }) {
               style={{
                 fontFamily: 'Poppins_600SemiBold',
                 fontSize: 51,
-                color: '#272727',
-                marginBottom: -4
+                color: '#272727'
               }}
             >
               {remainingTime === 0 ? '00:00' : timeConverter(remainingTime)}

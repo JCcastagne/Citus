@@ -59,15 +59,20 @@ export default function HomeScreen ({ navigation }) {
     websiteURL: 'https://unsplash.com'
   })
 
-  //State variables
+  //State variables for timer
   const [totalTime, setTotalTime] = useState(0)
   const [remainingTime, setRemainingTime] = useState(0)
   const [announce, setAnnounce] = useState(false)
   const [frequency, setFrequency] = useState(30)
   const [timerRunning, setTimerRunning] = useState(false)
+  const [progressBar, setProgressBar] = useState(100)
   useEffect(() => {
     setRemainingTime(totalTime)
   }, [totalTime])
+  useEffect(() => {
+    let progressPercentage = (remainingTime * 100) / totalTime
+    setProgressBar(progressPercentage)
+  }, [remainingTime])
 
   //State variables for user input countdown times
   const [hours, setHours] = useState(0)
@@ -157,7 +162,7 @@ export default function HomeScreen ({ navigation }) {
     }
   }
 
-  //SettingViewBackground
+  //Setting View Background
   function setViewBackground () {
     let accessKey = `HB-4Z23pQJyXP-jlu7rzYNpvecL_XivjIqhuEVR1-wU`
     let url = `https://api.unsplash.com/photos/random/?client_id=${accessKey}&query=landscape-forest-lake?color=blue`
@@ -380,7 +385,7 @@ export default function HomeScreen ({ navigation }) {
                 id='progressBarFill'
                 style={{
                   height: 8,
-                  width: '66%',
+                  width: `${progressBar}%`,
                   borderRadius: 99,
                   overflow: 'hidden'
                 }}

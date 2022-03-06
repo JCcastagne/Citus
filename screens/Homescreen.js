@@ -314,6 +314,7 @@ export default function HomeScreen ({ navigation }) {
               flexDirection: 'row',
               alignItems: 'flex-end',
               justifyContent: 'space-between',
+              flexWrap: 'wrap',
               width: '100%'
             }}
           >
@@ -362,6 +363,29 @@ export default function HomeScreen ({ navigation }) {
               >
                 Total time
               </Text>
+            </View>
+
+            <View
+              id='progressBar'
+              style={{
+                marginTop: 25,
+                backgroundColor: '#E2E5E6',
+                height: 8,
+                width: '100%',
+                borderRadius: 99,
+                overflow: 'hidden'
+              }}
+            >
+              <Image
+                id='progressBarFill'
+                style={{
+                  height: 8,
+                  width: '66%',
+                  borderRadius: 99,
+                  overflow: 'hidden'
+                }}
+                source={require('../assets/progress-bar-fill.png')}
+              ></Image>
             </View>
           </View>
 

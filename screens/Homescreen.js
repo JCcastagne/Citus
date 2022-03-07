@@ -81,6 +81,15 @@ export default function HomeScreen ({ navigation }) {
 
   //convert all user input countdown times into seconds
   useEffect(() => {
+    if (isNaN(hours)) {
+      setHours(0)
+    }
+    if (isNaN(minutes)) {
+      setMinutes(0)
+    }
+    if (isNaN(seconds)) {
+      setSeconds(0)
+    }
     let hoursToSeconds = hours * 3600
     let minutesToSeconds = minutes * 60
     let totalSeconds = hoursToSeconds + minutesToSeconds + seconds
@@ -101,6 +110,15 @@ export default function HomeScreen ({ navigation }) {
 
   //convert all user input frequency times into seconds
   useEffect(() => {
+    if (isNaN(fHours)) {
+      setFhours(0)
+    }
+    if (isNaN(fMinutes)) {
+      setFminutes(0)
+    }
+    if (isNaN(fSeconds)) {
+      setFseconds(0)
+    }
     let hoursToSeconds = fHours * 3600
     let minutesToSeconds = fMinutes * 60
     let totalSeconds = hoursToSeconds + minutesToSeconds + fSeconds

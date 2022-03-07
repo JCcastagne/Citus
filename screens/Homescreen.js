@@ -445,7 +445,7 @@ export default function HomeScreen ({ navigation }) {
                   return (
                     <>
                       <ImageBackground
-                        source={require('../assets/startButtonBG.png')}
+                        source={require('../assets/stopButtonBG.png')}
                         style={{
                           height: 49,
                           width: '100%',
@@ -453,36 +453,23 @@ export default function HomeScreen ({ navigation }) {
                           overflow: 'hidden',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          flexDirection: 'row',
-                          padding: 2
+                          flexDirection: 'row'
                         }}
                       >
-                        <View
+                        <Image
+                          source={require('../assets/stop.png')}
+                          style={{ height: 16, width: 16, marginRight: 6 }}
+                        />
+                        <Text
                           style={{
-                            backgroundColor: '#FFF',
-                            height: '100%',
-                            width: '100%',
-                            borderRadius: 12,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            flexDirection: 'row'
+                            fontFamily: 'Poppins_400Regular',
+                            fontSize: 17,
+                            color: '#16A7CE',
+                            paddingHorizontal: 1
                           }}
                         >
-                          <Image
-                            source={require('../assets/stop.png')}
-                            style={{ height: 16, width: 16, marginRight: 6 }}
-                          />
-                          <Text
-                            style={{
-                              fontFamily: 'Poppins_400Regular',
-                              fontSize: 17,
-                              color: '#16A7CE',
-                              paddingHorizontal: 1
-                            }}
-                          >
-                            Stop
-                          </Text>
-                        </View>
+                          Stop
+                        </Text>
                       </ImageBackground>
                     </>
                   )

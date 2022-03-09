@@ -14,6 +14,10 @@ import {
 import * as Speech from 'expo-speech'
 import { useEffect, useState, useRef } from 'react'
 
+import { AdMobBanner, setTestDeviceIDAsync } from 'expo-ads-admob'
+// Set global test device ID
+setTestDeviceIDAsync('EMULATOR')
+
 const width = Dimensions.get('window').width
 const height = Dimensions.get('window').height
 
@@ -49,6 +53,9 @@ function timeConverter (seconds) {
 }
 
 export default function HomeScreen ({ navigation }) {
+  //Ads
+  const [userPro, isUserPro] = useState(false)
+
   //Image source
   const [imageSource, setImageSource] = useState(
     'https://images.unsplash.com/photo-1644962986863-d075ee548966?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1476&q=80'
@@ -279,7 +286,6 @@ export default function HomeScreen ({ navigation }) {
         }}
         source={require('../assets/visualizerBackgroundBlur.png')}
       ></Image>
-
       <View
         id='navigation'
         style={{
@@ -303,7 +309,6 @@ export default function HomeScreen ({ navigation }) {
           </View>
         </Pressable>
       </View>
-
       <ImageBackground
         id='visualizer'
         style={{
@@ -527,8 +532,10 @@ export default function HomeScreen ({ navigation }) {
           </View>
         </ImageBackground>
       </ImageBackground>
-
-      <View id='controls' style={styles.controlsContainer}>
+      <View
+        id='controls'
+        style={{ ...styles.controlsContainer, bottom: userPro ? 0 : 50 }}
+      >
         <View id='time' style={styles.controlLine}>
           <Text style={styles.controlLabels}>Time</Text>
           <View
@@ -719,6 +726,20 @@ export default function HomeScreen ({ navigation }) {
           </View>
         </View>
       </View>
+      {!userPro && (
+        //if user has not paid to remove ads, show ads
+        <View style={{ position: 'absolute', bottom: 0 }}>
+          <AdMobBanner
+            bannerSize={
+              Platform.OS === 'ios' ? 'smartBannerPortrait' : 'banner'
+            }
+            adUnitID='ca-app-pub-3940256099942544/6300978111'
+            onDidFailToReceiveAdWithError={err => {
+              console.log(err)
+            }}
+          />
+        </View>
+      )}
     </View>
   )
 }
@@ -768,8 +789,7 @@ const styles = StyleSheet.create({
     shadowOffset: { height: 8 },
     shadowOpacity: 0.56,
     elevation: 20,
-    position: 'absolute',
-    bottom: 0
+    position: 'absolute'
   },
   controlLine: {
     display: 'flex',

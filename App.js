@@ -12,7 +12,7 @@ import {
   Poppins_700Bold
 } from '@expo-google-fonts/poppins'
 
-import HomeScreen from './screens/HomeScreen'
+import Homescreen from './screens/Homescreen'
 import Settings from './screens/Settings'
 
 export default function App () {
@@ -55,14 +55,14 @@ function AppContainer () {
     <View style={{ flex: 1 }}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName='HomeScreen'
+          initialRouteName='Homescreen'
           screenOptions={({ navigation }) => ({
             headerShown: false,
             cardShadowEnabled: true,
             cardOverlayEnabled: true
           })}
         >
-          <Stack.Screen name='HomeScreen' component={HomeScreen} />
+          <Stack.Screen name='Homescreen' component={Homescreen} />
           <Stack.Screen name='Settings' component={Settings} />
         </Stack.Navigator>
       </NavigationContainer>

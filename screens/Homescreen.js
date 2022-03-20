@@ -798,3 +798,5 @@ const styles = StyleSheet.create({
     paddingRight: Platform.OS === 'ios' ? 0 : 2
   }
 })
+
+export { styles }

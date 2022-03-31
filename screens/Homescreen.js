@@ -154,9 +154,16 @@ export default function Homescreen ({ navigation }) {
   }, [totalTime, frequency])
 
   useEffect(() => {
-    if (remainingTime === timeToAnnounce) {
-      speak(remainingTime)
-      setTimeToAnnounce(timeToAnnounce => timeToAnnounce - frequency)
+    if (remainingTime === timeToAnnounce && timerRunning) {
+      if (remainingTime <= 0) {
+        console.log(remainingTime)
+        setTimerRunning(false)
+        toggleTimer()
+        Speech.speak('countdown completed')
+      } else {
+        speak(remainingTime)
+        setTimeToAnnounce(timeToAnnounce => timeToAnnounce - frequency)
+      }
     }
   }, [remainingTime])
 

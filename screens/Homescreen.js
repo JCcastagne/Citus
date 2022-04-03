@@ -281,11 +281,13 @@ export default function Homescreen ({ navigation }) {
     <View
       style={{
         ...styles.container,
-        backgroundColor: '#F2F2F2',
+        backgroundColor: styleVariables.white,
         paddingTop: 80
       }}
     >
       <StatusBar style='auto' />
+
+      {/* visualizerBackgroundBlur */}
       <Image
         id='visualizerBackgroundBlur'
         style={{
@@ -298,24 +300,24 @@ export default function Homescreen ({ navigation }) {
         source={require('../assets/visualizerBackgroundBlur.png')}
       ></Image>
 
-      <View
-        id='navigation'
-        style={{
-          ...styles.controlLine,
-          width: '100%',
-          paddingHorizontal: 34,
-          padding: 0
-        }}
-      >
-        <Text style={styles.title}>Citus</Text>
+      {/* navigation */}
+      <View id='navigation' style={styles.navigation}>
+        <Text
+          style={[
+            styleVariables.fontSizes.title,
+            { color: styleVariables.colors.black }
+          ]}
+        >
+          Citus
+        </Text>
         <Pressable
           onPress={() => {
             navigation.navigate('Settings')
           }}
         >
-          <View style={styles.navIcon}>
+          <View style={styles.navIconButton}>
             <Image
-              style={styles.icons}
+              style={styles.navIcons}
               source={require('../assets/menu.png')}
             />
           </View>
@@ -362,45 +364,43 @@ export default function Homescreen ({ navigation }) {
             <View id='remainingTime'>
               <Text
                 id='remainingTime'
-                style={{
-                  fontFamily: 'Poppins_600SemiBold',
-                  fontSize: 51,
-                  color: '#272727'
-                }}
+                style={[
+                  styleVariables.fontSizes.countDown,
+                  { color: styleVariables.colors.black }
+                ]}
               >
                 {remainingTime === 0 ? '00:00' : timeConverter(remainingTime)}
               </Text>
               <Text
                 id='remainingTimeLabel'
-                style={{
-                  fontFamily: 'Poppins_400Regular',
-                  fontSize: 14,
-                  color: '#272727'
-                }}
+                style={[
+                  styleVariables.fontSizes.callout,
+                  { color: styleVariables.colors.black }
+                ]}
               >
                 Time left
               </Text>
             </View>
 
-            <View id='totalTime' style={{ alignItems: 'flex-end' }}>
+            <View
+              id='totalTime'
+              style={{ alignItems: 'flex-end', opacity: 0.66 }}
+            >
               <Text
                 id='totalTime'
-                style={{
-                  fontFamily: 'Poppins_400Regular',
-                  fontSize: 22,
-                  color: '#272727A8',
-                  marginBottom: 7
-                }}
+                style={[
+                  styleVariables.fontSizes.subTitle,
+                  { color: styleVariables.colors.black, marginBottom: 8 }
+                ]}
               >
                 {timeConverter(totalTime)}
               </Text>
               <Text
                 id='totalTimeLabel'
-                style={{
-                  fontFamily: 'Poppins_400Regular',
-                  fontSize: 14,
-                  color: '#272727A8'
-                }}
+                style={[
+                  styleVariables.fontSizes.callout,
+                  { color: styleVariables.colors.black }
+                ]}
               >
                 Total time
               </Text>
@@ -410,7 +410,7 @@ export default function Homescreen ({ navigation }) {
               id='progressBar'
               style={{
                 marginTop: 25,
-                backgroundColor: '#E2E5E6',
+                backgroundColor: styleVariables.colors.blueGreyDarker,
                 height: 8,
                 width: '100%',
                 borderRadius: 99,
@@ -467,11 +467,10 @@ export default function Homescreen ({ navigation }) {
                           style={{ height: 16, width: 16, marginRight: 6 }}
                         />
                         <Text
-                          style={{
-                            fontFamily: 'Poppins_400Regular',
-                            fontSize: 17,
-                            color: '#F0F2F5'
-                          }}
+                          style={[
+                            styleVariables.fontSizes.body,
+                            { color: styleVariables.colors.white }
+                          ]}
                         >
                           Start
                         </Text>
@@ -498,12 +497,13 @@ export default function Homescreen ({ navigation }) {
                           style={{ height: 16, width: 16, marginRight: 6 }}
                         />
                         <Text
-                          style={{
-                            fontFamily: 'Poppins_400Regular',
-                            fontSize: 17,
-                            color: '#16A7CE',
-                            paddingHorizontal: 1
-                          }}
+                          style={[
+                            styleVariables.fontSizes.body,
+                            {
+                              color: styleVariables.colors.blue,
+                              paddingHorizontal: 1
+                            }
+                          ]}
                         >
                           Stop
                         </Text>
@@ -516,29 +516,70 @@ export default function Homescreen ({ navigation }) {
 
             <View
               id='imageCredits'
-              style={{ flexDirection: 'row', alignItems: 'center' }}
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                opacity: 0.33
+              }}
             >
-              <Text style={styles.creditsLabel}>Picture by </Text>
+              <Text
+                style={[
+                  styleVariables.fontSizes.subCallout,
+                  ,
+                  {
+                    color: styleVariables.colors.white,
+
+                    paddingTop: 7,
+                    marginBottom: 16
+                  }
+                ]}
+              >
+                Picture by{' '}
+              </Text>
               <Text
                 onPress={() => {
                   Linking.openURL(`${imageCredits.profileURL}`)
                 }}
-                style={{
-                  ...styles.creditsLabel,
-                  fontFamily: 'Poppins_400Regular',
-                  textDecorationLine: 'underline'
-                }}
+                style={[
+                  styleVariables.fontSizes.subCallout,
+                  ,
+                  {
+                    color: styleVariables.colors.white,
+
+                    paddingTop: 7,
+                    marginBottom: 16,
+                    textDecorationLine: 'underline'
+                  }
+                ]}
               >{`${imageCredits.name} `}</Text>
-              <Text style={styles.creditsLabel}>on </Text>
+              <Text
+                style={[
+                  styleVariables.fontSizes.subCallout,
+                  ,
+                  {
+                    color: styleVariables.colors.white,
+
+                    paddingTop: 7,
+                    marginBottom: 16
+                  }
+                ]}
+              >
+                on{' '}
+              </Text>
               <Text
                 onPress={() => {
                   Linking.openURL(`${imageCredits.websiteURL}`)
                 }}
-                style={{
-                  ...styles.creditsLabel,
-                  fontFamily: 'Poppins_400Regular',
-                  textDecorationLine: 'underline'
-                }}
+                style={[
+                  styleVariables.fontSizes.subCallout,
+                  ,
+                  {
+                    color: styleVariables.colors.white,
+                    paddingTop: 7,
+                    marginBottom: 16,
+                    textDecorationLine: 'underline'
+                  }
+                ]}
               >
                 Unsplash
               </Text>
@@ -548,8 +589,15 @@ export default function Homescreen ({ navigation }) {
       </ImageBackground>
 
       <View id='controls' style={styles.controlsContainer}>
-        <View id='time' style={styles.controlLine}>
-          <Text style={styles.controlLabels}>Time</Text>
+        <View id='time' style={[styles.controlLine, { opacity: 0.66 }]}>
+          <Text
+            style={[
+              styleVariables.fontSizes.bodyBigSemiBold,
+              { color: styleVariables.colors.black }
+            ]}
+          >
+            Time
+          </Text>
           <View
             style={{
               display: 'flex',
@@ -579,8 +627,11 @@ export default function Homescreen ({ navigation }) {
               onSubmitEditing={() => {
                 setMinutesInput.current.focus()
               }}
-              style={styles.controlInputs}
-              placeholderTextColor='#272727A8'
+              style={[
+                styleVariables.fontSizes.bodyBig,
+                { color: styleVariables.colors.black }
+              ]}
+              placeholderTextColor={styleVariables.colors.black}
             />
             <Text style={styles.controlInputSpacer}>:</Text>
             <TextInput
@@ -606,8 +657,11 @@ export default function Homescreen ({ navigation }) {
               onSubmitEditing={() => {
                 setSecondsInput.current.focus()
               }}
-              style={styles.controlInputs}
-              placeholderTextColor='#272727A8'
+              style={[
+                styleVariables.fontSizes.bodyBig,
+                { color: styleVariables.colors.black }
+              ]}
+              placeholderTextColor={styleVariables.colors.black}
             />
             <Text style={styles.controlInputSpacer}>:</Text>
             <TextInput
@@ -630,25 +684,49 @@ export default function Homescreen ({ navigation }) {
               autoComplete='false'
               importantForAutofill='no'
               maxLength={2}
-              style={styles.controlInputs}
-              placeholderTextColor='#272727A8'
+              style={[
+                styleVariables.fontSizes.bodyBig,
+                { color: styleVariables.colors.black }
+              ]}
+              placeholderTextColor={styleVariables.colors.black}
             />
           </View>
         </View>
 
-        <View id='announce' style={styles.controlLine}>
-          <Text style={styles.controlLabels}>Announce</Text>
+        <View id='announce' style={[styles.controlLine, { opacity: 0.66 }]}>
+          <Text
+            style={[
+              styleVariables.fontSizes.bodyBigSemiBold,
+              { color: styleVariables.colors.black }
+            ]}
+          >
+            Announce
+          </Text>
           <Pressable
             onPress={() => {
               announce ? setAnnounce(false) : setAnnounce(true)
             }}
           >
-            <Text style={styles.controlInputs}>{announce ? 'On' : 'Off'}</Text>
+            <Text
+              style={[
+                styleVariables.fontSizes.bodyBig,
+                { color: styleVariables.colors.black }
+              ]}
+            >
+              {announce ? 'On' : 'Off'}
+            </Text>
           </Pressable>
         </View>
 
-        <View id='frequency' style={styles.controlLine}>
-          <Text style={styles.controlLabels}>Frequency</Text>
+        <View id='frequency' style={[styles.controlLine, { opacity: 0.66 }]}>
+          <Text
+            style={[
+              styleVariables.fontSizes.bodyBigSemiBold,
+              { color: styleVariables.colors.black }
+            ]}
+          >
+            Frequency
+          </Text>
           <View
             style={{
               display: 'flex',
@@ -678,8 +756,11 @@ export default function Homescreen ({ navigation }) {
               onSubmitEditing={() => {
                 setFminutesInput.current.focus()
               }}
-              style={styles.controlInputs}
-              placeholderTextColor='#272727A8'
+              style={[
+                styleVariables.fontSizes.bodyBig,
+                { color: styleVariables.colors.black }
+              ]}
+              placeholderTextColor={styleVariables.colors.black}
             />
             <Text style={styles.controlInputSpacer}>:</Text>
             <TextInput
@@ -705,8 +786,11 @@ export default function Homescreen ({ navigation }) {
               onSubmitEditing={() => {
                 setFsecondsInput.current.focus()
               }}
-              style={styles.controlInputs}
-              placeholderTextColor='#272727A8'
+              style={[
+                styleVariables.fontSizes.bodyBig,
+                { color: styleVariables.colors.black }
+              ]}
+              placeholderTextColor={styleVariables.colors.black}
             />
             <Text style={styles.controlInputSpacer}>:</Text>
             <TextInput
@@ -732,8 +816,11 @@ export default function Homescreen ({ navigation }) {
               onSubmitEditing={() => {
                 setFsecondsInput.current.blur()
               }}
-              style={styles.controlInputs}
-              placeholderTextColor='#272727A8'
+              style={[
+                styleVariables.fontSizes.bodyBig,
+                { color: styleVariables.colors.black }
+              ]}
+              placeholderTextColor={styleVariables.colors.black}
             />
           </View>
         </View>
@@ -742,47 +829,78 @@ export default function Homescreen ({ navigation }) {
   )
 }
 
+let styleVariables = {
+  fontSizes: {
+    countDown: {
+      fontFamily: 'Poppins_600SemiBold',
+      fontSize: 51
+    },
+    title: {
+      fontFamily: 'Poppins_700Bold',
+      fontSize: 34
+    },
+    subTitle: {
+      fontFamily: 'Poppins_400Regular',
+      fontSize: 22
+    },
+    bodyBig: {
+      fontFamily: 'Poppins_400Regular',
+      fontSize: 20
+    },
+    bodyBigSemiBold: {
+      fontFamily: 'Poppins_600SemiBold',
+      fontSize: 20
+    },
+    body: { fontFamily: 'Poppins_400Regular', fontSize: 17 },
+    callout: {
+      fontFamily: 'Poppins_400Regular',
+      fontSize: 14
+    },
+    subCallout: {
+      fontFamily: 'Poppins_400Regular',
+      fontSize: 12
+    }
+  },
+  colors: {
+    perfectWhite: '#FFF',
+    white: '#F2F2F2',
+    black: '#272727',
+    blue: '#16A7CE',
+    blueGrey: '#AEB9C2',
+    blueGreyDarker: '#E2E5E6'
+  }
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: styleVariables.colors.perfectWhite,
     alignItems: 'center'
     // justifyContent: 'center'
   },
-  title: {
-    fontSize: 34,
-    fontFamily: 'Poppins_700Bold',
-    color: '#272727'
-  },
-  icons: {
+  navIcons: {
     width: 28,
     height: 28
   },
-  navIcon: {
+  navIconButton: {
     padding: 10,
-    backgroundColor: '#FFF',
+    backgroundColor: styleVariables.colors.perfectWhite,
     borderRadius: 14,
-    shadowColor: '#AEB9C2',
+    shadowColor: styleVariables.colors.blueGrey,
     shadowRadius: 34,
     shadowOffset: { height: 8 },
-    shadowOpacity: 42
-  },
-  creditsLabel: {
-    fontFamily: 'Poppins_400Regular',
-    fontSize: 12,
-    paddingTop: 7,
-    marginBottom: 16,
-    color: '#F2F2F26B'
+    shadowOpacity: 0.42,
+    elevation: 20
   },
   controlsContainer: {
     width: '100%',
-    backgroundColor: '#FFF',
+    backgroundColor: styleVariables.colors.perfectWhite,
     paddingHorizontal: 34,
     borderTopLeftRadius: 28,
     borderTopRightRadius: 28,
     paddingTop: 34,
     paddingBottom: Platform.OS === 'ios' ? 41 : 20,
-    shadowColor: '#AEB9C2',
+    shadowColor: styleVariables.colors.blueGrey,
     shadowRadius: 68,
     shadowOffset: { height: 8 },
     shadowOpacity: 0.56,
@@ -797,20 +915,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 10
   },
-  controlLabels: {
-    fontFamily: 'Poppins_600SemiBold',
-    fontSize: 20,
-    color: '#272727A8'
-  },
-  controlInputs: {
-    fontFamily: 'Poppins_400Regular',
-    fontSize: 20,
-    color: '#272727A8'
+  navigation: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    paddingHorizontal: 34,
+    paddingBottom: 10
   },
   controlInputSpacer: {
     fontFamily: 'Poppins_400Regular',
     fontSize: 20,
-    color: '#272727A8',
+    color: styleVariables.colors.black,
     // lineHeight: Platform.OS === 'android' ? 18 : 0
     transform:
       Platform.OS === 'ios' ? [{ translateY: -1 }] : [{ translateY: -4 }],
@@ -818,4 +935,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export { styles }
+export { styles, styleVariables }

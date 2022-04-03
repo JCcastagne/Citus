@@ -260,6 +260,7 @@ export default function Homescreen ({ navigation }) {
   //   console.log(`
   //   remainingTime:${remainingTime}
   //   announce:${announce}
+  //   timeToAnnounce:${timeToAnnounce}
   //   frequency:${frequency}
   //   timerRunning:${timerRunning}
   //   hours:${hours}
@@ -438,6 +439,7 @@ export default function Homescreen ({ navigation }) {
                   toggleTimer()
                 } else {
                   setRemainingTime(totalTime)
+                  setTimeToAnnounce(totalTime - frequency)
                   setTimerRunning(true)
                   toggleTimer()
                 }

@@ -176,14 +176,24 @@ export default function Homescreen ({ navigation }) {
 
     let timeSegments = time.split(':')
 
+    //trim leading 0's
+    timeSegments.forEach((segment, index) => {
+      // console.log(segment)
+      if (segment[0] === '0') {
+        timeSegments[index] = segment[1]
+      }
+    })
+
     if (timeSegments[2]) {
       Speech.speak(
         `${timeSegments[0]} hours ${timeSegments[1]} minutes and ${timeSegments[2]} seconds remaining`
       )
-    } else {
+    } else if (timeSegments[1]) {
       Speech.speak(
         `${timeSegments[0]} minutes and ${timeSegments[1]} seconds remaining`
       )
+    } else {
+      Speech.speak(`${timeSegments[1]} seconds remaining`)
     }
   }
 

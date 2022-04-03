@@ -1,56 +1,181 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Dimensions,
+  ImageBackground
+} from 'react-native'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 import { StatusBar } from 'expo-status-bar'
-import { styles as hsStyles } from './Homescreen'
+import { styles, styleVariables } from './Homescreen'
+
+const width = Dimensions.get('window').width
+const height = Dimensions.get('window').height
 
 export default function Settings ({ navigation }) {
   return (
     <View
       style={{
-        ...hsStyles.container,
+        ...styles.container,
         backgroundColor: '#F2F2F2',
         paddingTop: 80
       }}
     >
       <StatusBar style='auto' />
 
-      <View
-        id='navigation'
-        style={{
-          ...hsStyles.controlLine,
-          width: '100%',
-          paddingHorizontal: 34,
-          padding: 0
-        }}
-      >
+      <View id='navigation' style={styles.navigation}>
         <Pressable
           onPress={() => {
             navigation.navigate('Homescreen')
           }}
         >
-          <View style={hsStyles.navIcon}>
+          <View style={styles.navIconButton}>
             <Image
-              style={hsStyles.icons}
+              style={styles.navIcons}
               source={require('../assets/back.png')}
             />
           </View>
         </Pressable>
-        {/* <Text style={hsStyles.title}>Citus</Text> */}
       </View>
 
-      <View style={{ ...hsStyles.controlsContainer, position: 'relative' }}>
-        <Text>Keep it ad-free</Text>
-        <Text>With everyone's help, donations are what</Text>
+      <View
+        style={{
+          marginTop: 30,
+          backgroundColor: '#FFF',
+          // height: 384,
+          width: width - 34,
+          padding: 17,
+          borderRadius: 28,
+          // overflow: 'hidden',
+          shadowColor: styleVariables.colors.blueGrey,
+          shadowRadius: 34,
+          shadowOffset: { height: 8 },
+          shadowOpacity: 0.42,
+          elevation: 20
+        }}
+      >
+        {/* header */}
+        <Text
+          style={[
+            styleVariables.fontSizes.titleSemiBold,
+            { color: styleVariables.colors.blue }
+          ]}
+        >
+          Keep it ad-free
+        </Text>
+        <Text
+          style={[
+            styleVariables.fontSizes.body,
+            {
+              color: styleVariables.colors.black,
+              opacity: 0.66,
+              marginBottom: 17
+            }
+          ]}
+        >
+          With everyone's help, donations are what
+        </Text>
+
+        {/* talkingPoints */}
         <View>
-          <View style={{ ...hsStyles.controlLine, paddingBottom: 25 }}>
-            <Text>Supports the developer</Text>
+          <View
+            style={{
+              ...styles.controlLine,
+              justifyContent: 'flex-start',
+              paddingBottom: 25
+            }}
+          >
+            <Image
+              source={require('../assets/mdi_robot-happy-outline.png')}
+              style={{ height: 26, width: 26, marginRight: 17 }}
+            />
+            <Text
+              style={[
+                styleVariables.fontSizes.body,
+                { color: styleVariables.colors.black }
+              ]}
+            >
+              Supports the developer
+            </Text>
           </View>
-          <View style={{ ...hsStyles.controlLine, paddingBottom: 25 }}>
-            <Text>Keeps the app free</Text>
+
+          <View
+            style={{
+              ...styles.controlLine,
+              justifyContent: 'flex-start',
+              paddingBottom: 25
+            }}
+          >
+            <Image
+              source={require('../assets/currency-usd-off.png')}
+              style={{ height: 26, width: 26, marginRight: 17 }}
+            />
+            <Text
+              style={[
+                styleVariables.fontSizes.body,
+                { color: styleVariables.colors.black }
+              ]}
+            >
+              Keeps the app free
+            </Text>
           </View>
-          <View style={{ ...hsStyles.controlLine, paddingBottom: 25 }}>
-            <Text>Keeps the app ad-free</Text>
+
+          <View
+            style={{
+              ...styles.controlLine,
+              justifyContent: 'flex-start',
+              paddingBottom: 34
+            }}
+          >
+            <Image
+              source={require('../assets/ic_baseline-web-asset-off.png')}
+              style={{ height: 26, width: 26, marginRight: 17 }}
+            />
+            <Text
+              style={[
+                styleVariables.fontSizes.body,
+                { color: styleVariables.colors.black }
+              ]}
+            >
+              Keeps the app ad-free
+            </Text>
           </View>
+        </View>
+
+        {/* CTA */}
+        <View
+          style={{
+            backgroundColor: styleVariables.colors.perfectWhite,
+            borderRadius: 14,
+            shadowColor: '#17A9CF',
+            shadowRadius: 68,
+            shadowOffset: { height: 17 },
+            shadowOpacity: 0.66,
+            elevation: 22
+          }}
+        >
+          <ImageBackground
+            source={require('../assets/startButtonBG.png')}
+            style={{
+              height: 49,
+              width: '100%',
+              borderRadius: 14,
+              overflow: 'hidden',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'row'
+            }}
+          >
+            <Text
+              style={[
+                styleVariables.fontSizes.body,
+                { color: styleVariables.colors.white }
+              ]}
+            >
+              Donate
+            </Text>
+          </ImageBackground>
         </View>
       </View>
     </View>

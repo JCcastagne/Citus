@@ -835,6 +835,10 @@ let styleVariables = {
       fontFamily: 'Poppins_600SemiBold',
       fontSize: 51
     },
+    titleSemiBold: {
+      fontFamily: 'Poppins_600SemiBold',
+      fontSize: 34
+    },
     title: {
       fontFamily: 'Poppins_700Bold',
       fontSize: 34
